@@ -1,7 +1,54 @@
 package dominio;
 
+import logica.ListaSkins;
+
 public class Personaje {
 	private String nombrePersonaje;
+	private String rol;
+	private int recaudacion;
+	private ListaSkins listaSkins;
+	
+	public Personaje(String nombrePersonaje,String rol,int recaudacion) {
+		this.nombrePersonaje = nombrePersonaje;
+		this.rol = rol;
+		listaSkins = new ListaSkins(100);
+		
+	}
+
+	public String getNombrePersonaje() {
+		return nombrePersonaje;
+	}
+
+	public void setNombrePersonaje(String nombrePersonaje) {
+		this.nombrePersonaje = nombrePersonaje;
+	}
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+
+	public int getRecaudacion() {
+		return recaudacion;
+	}
+
+	public void setRecaudacion(int recaudacion) {
+		this.recaudacion = recaudacion;
+	}
+
+	public ListaSkins getListaSkins() {
+		return listaSkins;
+	}
+
+	public void setListaSkins(ListaSkins listaSkins) {
+		this.listaSkins = listaSkins;
+	}
+	
+	
+	
 	
 
 }
