@@ -77,17 +77,12 @@ public class Cuenta {
 		return listaPersonajes;
 	}
 
-	public void setListaPersonajes(ListaPersonajes listaPersonajes) {
-		this.listaPersonajes = listaPersonajes;
-	}
 
 	public ListaSkins getListaSkins() {
 		return listaSkins;
 	}
 
-	public void setListaSkins(ListaSkins listaSkins) {
-		this.listaSkins = listaSkins;
-	}
+
 	
 	
 }

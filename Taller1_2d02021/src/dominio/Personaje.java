@@ -43,12 +43,4 @@ public class Personaje {
 		return listaSkins;
 	}
 
-	public void setListaSkins(ListaSkins listaSkins) {
-		this.listaSkins = listaSkins;
-	}
-	
-	
-	
-	
-
 }
