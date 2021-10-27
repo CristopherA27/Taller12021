@@ -11,8 +11,8 @@ public class Personaje {
 	public Personaje(String nombrePersonaje,String rol,int recaudacion) {
 		this.nombrePersonaje = nombrePersonaje;
 		this.rol = rol;
+		this.recaudacion = recaudacion;
 		listaSkins = new ListaSkins(100);
-		
 	}
 
 	public String getNombrePersonaje() {
