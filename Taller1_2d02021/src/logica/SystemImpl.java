@@ -2,6 +2,7 @@ package logica;
 
 import dominio.Cuenta;
 import dominio.Personaje;
+import dominio.Skin;
 
 public class SystemImpl implements SystemI{
 	
@@ -43,9 +44,55 @@ public class SystemImpl implements SystemI{
 		}else {
 			throw new NullPointerException("El persona con el nombre "+nombrePersonaje+" ya existe");
 		}
-		
-		
 	}
+
+	@Override
+	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String contraseña,String nick, int nivelCuenta, int rpCuenta,String region,String nombrePersonaje,String rol) {
+		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
+		if(personaje != null) {
+			Cuenta cuenta = lCuentas.buscar(nombreCuenta);
+			if(cuenta !=null) {
+				cuenta = new Cuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, region);
+				boolean ingreso = lCuentas.ingresar(cuenta);
+				boolean ingreso2 = cuenta.getListaPersonajes().ingresar(personaje);
+				if(ingreso & ingreso2) {
+					return true;
+				}else {
+					return false;
+				}
+			}else {
+				throw new NullPointerException("No existe la cuenta "+nombreCuenta);
+			}
+		}else {
+			throw new NullPointerException("No exite el personaje "+nombrePersonaje);
+		}
+	}
+
+	public boolean ingresarAsociarPersonajeSkin(String nombrePersonaje, String rol,int recaudacion, String nombreSkin,
+			String calidadSkin) {
+		Skin skin = lSkins.buscar(nombreSkin);
+		if(skin != null) {
+			Personaje personaje = lPersonajes.buscar(nombrePersonaje);
+			if(personaje!=null) {
+				personaje = new Personaje(nombrePersonaje, rol, recaudacion);
+				boolean ingresado = personaje.getListaSkins().ingresar(skin);
+				if(ingresado) {
+					return true;
+				}else {
+					return false;
+				}
+			}else {
+				throw new NullPointerException("No se encontro el personaje con el nombre "+nombrePersonaje);
+			}
+		}else {
+			throw new NullPointerException("No se encontro la skin con el nombre "+nombreSkin);
+		}
+
+	}
+	
+	
+	
+
 	
 	
 	
