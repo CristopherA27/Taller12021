@@ -25,6 +25,27 @@ public class Skin {
 		this.calidadSkin = calidadSkin;
 	}
 	
+	public int tipoSkin(String calidadSkin) {
+		if(calidadSkin.equalsIgnoreCase("M")) {
+			return 3250;
+		}
+		if(calidadSkin.equalsIgnoreCase("D")){
+			return 2750;
+		}
+		if(calidadSkin.equalsIgnoreCase("L")) {
+			return 1820;
+		}
+		if(calidadSkin.equalsIgnoreCase("E")) {
+			return 1350;
+		}
+		if(calidadSkin.equalsIgnoreCase("N")) {
+			return 975;
+		}
+		else {
+			return 0;
+		}
+	}
+	
 	
 
 }

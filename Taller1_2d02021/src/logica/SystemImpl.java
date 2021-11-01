@@ -31,7 +31,7 @@ public class SystemImpl implements SystemI{
 		}	
 	}
 	
-	public boolean ingresarPersonaje(String nombrePersonaje,String rol,int recaudacion) {
+	/*public boolean ingresarPersonaje(String nombrePersonaje,String rol,int recaudacion) {
 		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
 		if(personaje == null) {
 			personaje = new Personaje(nombrePersonaje, rol, recaudacion);
@@ -44,7 +44,7 @@ public class SystemImpl implements SystemI{
 		}else {
 			throw new NullPointerException("El persona con el nombre "+nombrePersonaje+" ya existe");
 		}
-	}
+	}*/
 
 	@Override
 	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String contraseña,String nick, int nivelCuenta, int rpCuenta,String region,String nombrePersonaje,String rol) {
@@ -87,7 +87,21 @@ public class SystemImpl implements SystemI{
 		}else {
 			throw new NullPointerException("No se encontro la skin con el nombre "+nombreSkin);
 		}
-
+	}
+	
+	public boolean comprarSkin(String nombreCuenta,String nombrePersonaje,String nombreSkin) {
+		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
+		if(cuenta != null) {
+			Personaje personaje = cuenta.getListaPersonajes().buscar(nombrePersonaje);
+			if(personaje!= null) {
+				Skin skin = personaje.getListaSkins().buscar(nombreSkin);
+				if(skin != null) {
+					double pagar = 0;
+					
+				}
+			}
+		}
+		return false;
 	}
 	
 	
