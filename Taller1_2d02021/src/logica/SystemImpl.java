@@ -141,6 +141,20 @@ public class SystemImpl implements SystemI{
 		}
 	}
 	
+	public String obtenerSkinsDisponibles(String nombreCuenta) {
+		String dato = "";
+		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
+		if(cuenta != null) {
+			ListaSkins ls = cuenta.getListaSkins();
+			for(int i=0;i<lSkins.getCant();i++) {
+				if(!ls.getElementoI(i).equals(lSkins.getElementoI(i))) {
+					dato += lSkins.getElementoI(i)+"\n";
+				}
+			}
+		}
+		return dato;
+	}
+	
 	
 	
 	
