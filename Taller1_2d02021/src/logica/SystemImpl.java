@@ -48,23 +48,24 @@ public class SystemImpl implements SystemI{
 
 	@Override
 	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String contraseña,String nick, int nivelCuenta, int rpCuenta,String region,String nombrePersonaje,String rol) {
-		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
-		if(personaje != null) {
-			Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-			if(cuenta !=null) {
+		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
+		if(cuenta != null) {
+			Personaje personaje = cuenta.getListaPersonajes().buscar(nombrePersonaje);
+			if(personaje != null) {
 				cuenta = new Cuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, region);
-				boolean ingreso = lCuentas.ingresar(cuenta);
-				boolean ingreso2 = cuenta.getListaPersonajes().ingresar(personaje);
-				if(ingreso & ingreso2) {
+				boolean ingresado = cuenta.getListaPersonajes().ingresar(personaje);
+				//Dberia ir?
+				//boolean ingreso = lCuentas.ingresar(cuenta);
+				if(ingresado) {
 					return true;
 				}else {
 					return false;
 				}
 			}else {
-				throw new NullPointerException("No existe la cuenta "+nombreCuenta);
+				throw new NullPointerException("No existe la cuenta "+nombrePersonaje);
 			}
 		}else {
-			throw new NullPointerException("No exite el personaje "+nombrePersonaje);
+			throw new NullPointerException("No exite el personaje "+nombreCuenta);
 		}
 	}
 
