@@ -119,6 +119,32 @@ public class SystemImpl implements SystemI{
 		}
 	}
 	
+	public boolean comprarPersonaje(String nombreCuenta,String nombrePersonaje) {
+		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
+		if(cuenta != null) {
+			Personaje personaje = cuenta.getListaPersonajes().buscar(nombrePersonaje);
+			if(personaje ==null) {
+				int pagar = 975;
+				if(cuenta.getRpCuenta()>pagar) {
+					cuenta.getListaPersonajes().ingresar(personaje);
+					personaje.setRecaudacion(personaje.getRecaudacion()+(int)(pagar*6.15));
+					cuenta.setRpCuenta(cuenta.getRpCuenta()-pagar);
+					return true;
+				}else {
+					return false;
+				}
+			}else {
+				throw new NullPointerException("El "+nombrePersonaje+" no existe");
+			}
+		}else {
+			throw new NullPointerException("La cuenta "+nombreCuenta+" no existe");
+		}
+	}
+	
+	
+	
+	
+	
 	
 }
 	
