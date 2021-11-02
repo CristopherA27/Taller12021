@@ -69,12 +69,11 @@ public class SystemImpl implements SystemI{
 		}
 	}
 
-	public boolean ingresarAsociarPersonajeSkin(String nombrePersonaje, String rol,int recaudacion, String nombreSkin,
-			String calidadSkin) {
-		Skin skin = lSkins.buscar(nombreSkin);
-		if(skin != null) {
-			Personaje personaje = lPersonajes.buscar(nombrePersonaje);
-			if(personaje!=null) {
+	public boolean ingresarAsociarPersonajeSkin(String nombrePersonaje, String rol,int recaudacion, String nombreSkin,String calidadSkin) {
+		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
+		if(personaje != null) {
+			Skin skin = personaje.getListaSkins().buscar(nombreSkin);
+			if(skin != null) {
 				personaje = new Personaje(nombrePersonaje, rol, recaudacion);
 				boolean ingresado = personaje.getListaSkins().ingresar(skin);
 				if(ingresado) {
@@ -83,10 +82,10 @@ public class SystemImpl implements SystemI{
 					return false;
 				}
 			}else {
-				throw new NullPointerException("No se encontro el personaje con el nombre "+nombrePersonaje);
+				throw new NullPointerException("No se encontro la skin de nombre "+nombreSkin);
 			}
 		}else {
-			throw new NullPointerException("No se encontro la skin con el nombre "+nombreSkin);
+			throw new NullPointerException("No se encontro el personaje "+nombrePersonaje);
 		}
 	}
 	
@@ -96,23 +95,31 @@ public class SystemImpl implements SystemI{
 			Personaje personaje = cuenta.getListaPersonajes().buscar(nombrePersonaje);
 			if(personaje!= null) {
 				Skin skin = personaje.getListaSkins().buscar(nombreSkin);
-				if(skin != null) {
-					double pagar = 0;
-					
+				if(skin ==null) {
+					int pagar = 0;
+					int tipoSkin = skin.tipoSkin(skin.getCalidadSkin());
+					pagar = tipoSkin;
+					if(cuenta.getRpCuenta()>pagar) {
+						cuenta.setRpCuenta(cuenta.getRpCuenta()-pagar);
+						personaje.getListaSkins().ingresar(skin);
+						//No se  si la linea 106 esl o mismo que la 104
+						cuenta.getListaPersonajes().buscar(nombrePersonaje).getListaSkins().ingresar(skin);
+						return true;
+					}else {
+						return false;
+					}	
+				}else {
+					throw new NullPointerException("La skin con nombre "+nombreSkin+" ya existe");
 				}
+			}else {
+				throw new NullPointerException("El "+nombrePersonaje+" no existe");
 			}
+		}else {
+			throw new NullPointerException("La cuenta "+nombreCuenta+" no existe");
 		}
-		return false;
 	}
-	
-	
-	
-
-	
-	
 	
 	
 }
 	
-
 
