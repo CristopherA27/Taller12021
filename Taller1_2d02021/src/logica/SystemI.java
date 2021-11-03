@@ -19,6 +19,7 @@ public interface SystemI {
 
 	//menu admin
 	public String obtenerVentasPorRol();
+	public String obtenerVentasPorRegion();
 
 }
 

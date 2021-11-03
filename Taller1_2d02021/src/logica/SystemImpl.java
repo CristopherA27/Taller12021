@@ -249,6 +249,17 @@ public class SystemImpl implements SystemI{
 		dato+="SUP:"+recaudacionSUP+" ADC:"+recaudacionADC+" TOP:"+recaudacionTOP+" MID:"+recaudacionMID+" JG:"+recaudacionJG;
 		return dato;
 	}
+
+	@Override
+	public String obtenerVentasPorRegion() {
+		for(int i=0;i<lCuentas.getCant();i++) {
+			Cuenta cuenta = lCuentas.getElementoI(i);
+			
+			
+		}
+		
+		return null;
+	}
 	
 	
 	
