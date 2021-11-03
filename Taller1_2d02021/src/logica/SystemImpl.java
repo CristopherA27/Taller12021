@@ -214,6 +214,41 @@ public class SystemImpl implements SystemI{
 			throw new NullPointerException("La cuenta "+nombreCuenta+" no existe");
 		}
 	}
+
+	@Override
+	public String obtenerVentasPorRol() {
+		String dato = "";
+		int recaudacionSUP =0;
+		int recaudacionADC = 0;
+		int recaudacionTOP =0;
+		int recaudacionMID=0;
+		int recaudacionJG = 0;
+		for(int i=0;i<lPersonajes.getCant();i++) {
+			Personaje personaje = lPersonajes.getElementoI(i);
+			int recaudacion = personaje.getRecaudacion();
+			String tipo = personaje.getRol();
+			switch(tipo) {
+			case("SUP"):
+				recaudacionSUP +=recaudacion;
+				break;
+			case("ADC"):
+				recaudacionADC+=recaudacion;
+				break;
+			case("TOP"):
+				recaudacionTOP+=recaudacion;
+				break;
+			case("MID"):
+				recaudacionMID+=recaudacion;
+				break;
+			case("JG"):
+				recaudacionJG+=recaudacion;
+				break;
+			default:break;
+			}
+		}
+		dato+="SUP:"+recaudacionSUP+" ADC:"+recaudacionADC+" TOP:"+recaudacionTOP+" MID:"+recaudacionMID+" JG:"+recaudacionJG;
+		return dato;
+	}
 	
 	
 	
