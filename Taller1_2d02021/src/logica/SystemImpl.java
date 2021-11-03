@@ -154,6 +154,25 @@ public class SystemImpl implements SystemI{
 		}
 		return dato;
 	}
+
+	@Override
+	public String obtenerInventario(String nombreCuenta) {
+		String dato = "";
+		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
+		if(cuenta != null) {
+			ListaPersonajes listapersonajes = cuenta.getListaPersonajes();
+			for(int i=0;i<listapersonajes.getCant();i++) {
+				Personaje personaje = listapersonajes.getElementoI(i);
+				ListaSkins listaskins = personaje.getListaSkins();
+				dato+= personaje.getNombrePersonaje()+"";
+				for(int j=0;j<listaskins.getCant();i++) {
+					Skin skin = listaskins.getElementoI(i);
+					dato+=skin.getNombreSkin()+"\n";
+				}
+			}
+		}
+		return dato;
+	}
 	
 	
 	
