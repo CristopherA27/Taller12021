@@ -191,18 +191,15 @@ public class SystemImpl implements SystemI{
 		String dato = "";
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta != null) {
-			dato+= cuenta.getNombreCuenta()+" "+cuenta.getNick()+" "+cuenta.getContraseña();
+			String contraseña = cuenta.getContraseña();
+			int cantCaracteres = contraseña.length();
+			//ojo aca
+			dato+= cuenta.getNombreCuenta()+" "+cuenta.getNick()+" "+cuenta.getContraseña()+" "+contraseña.substring(cantCaracteres-3,cantCaracteres);
 		}else {
 			throw new NullPointerException("La cuenta "+nombreCuenta+" no existe");
 		}
 		return null;
 	}
-	
-	
-	
-	
-	
-	
 		
 	public boolean cambiarContraseña(String nombreCuenta,String contraseñaVieja,String contraseñaNueva) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
