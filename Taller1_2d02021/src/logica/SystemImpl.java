@@ -170,11 +170,22 @@ public class SystemImpl implements SystemI{
 					dato+=skin.getNombreSkin()+"\n";
 				}
 			}
+		}else {
+			throw new NullPointerException("La cuenta "+nombreCuenta+" no existe");
 		}
 		return dato;
 	}
 	
-	
+	public boolean recargarRp(String nombreCuenta,int dinero) {
+		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
+		if(cuenta != null) {
+			int saldo = cuenta.getRpCuenta()+dinero;
+			cuenta.setRpCuenta(saldo);
+			return true;
+		}else {
+			throw new NullPointerException("La cuenta de nombre "+nombreCuenta+" no existe");
+		}
+	}
 	
 	
 	
