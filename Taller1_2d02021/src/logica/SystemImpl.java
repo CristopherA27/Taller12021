@@ -354,7 +354,22 @@ public class SystemImpl implements SystemI{
 		return false;
 	}
 	
-	
+	public boolean agregarSkin(String nombrePersonaje,String nombreSkin,String calidadSkin) {
+		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
+		if(personaje != null) {
+			Skin skin = personaje.getListaSkins().buscar(nombreSkin);
+			if(skin ==null) {
+				skin = new Skin(nombreSkin, calidadSkin);
+				personaje.getListaSkins().ingresar(skin);
+				lSkins.ingresar(skin);
+				return true;
+			}else {
+				return false;
+			}
+		}else {
+			throw new NullPointerException("El personaje de nombre "+nombrePersonaje+" no existe");
+		}
+	}
 	
 	
 	
