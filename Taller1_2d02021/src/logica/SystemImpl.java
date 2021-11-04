@@ -371,7 +371,10 @@ public class SystemImpl implements SystemI{
 		}
 	}
 	
-	
+	public boolean bloquearJugador(String nombreCuenta) {
+		
+		return false;
+	}
 	
 }
 	
