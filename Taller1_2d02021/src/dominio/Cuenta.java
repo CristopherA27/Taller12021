@@ -9,17 +9,19 @@ public class Cuenta {
 	private int nivelCuenta;
 	private int rpCuenta;
 	private String region;
+	private double recaudacionRegion;
 	
 	private ListaPersonajes listaPersonajes;
 	private ListaSkins listaSkins;
 	
-	public Cuenta(String nombreCuenta,String contraseña,String nick,int nivelCuenta,int rpCuenta,String region) {
+	public Cuenta(String nombreCuenta,String contraseña,String nick,int nivelCuenta,int rpCuenta,String region,double recaudacionRegion) {
 		this.nombreCuenta = nombreCuenta;
 		this.contraseña = contraseña;
 		this.nick = nick;
 		this.nivelCuenta = nivelCuenta;
 		this.rpCuenta = rpCuenta;
 		this.region = region;
+		this.recaudacionRegion = 0;
 		
 		listaPersonajes = new ListaPersonajes(100);
 		listaSkins = new ListaSkins(100);
@@ -77,11 +79,19 @@ public class Cuenta {
 		return listaPersonajes;
 	}
 
-
 	public ListaSkins getListaSkins() {
 		return listaSkins;
 	}
 
+	public double getRecaudacionRegion() {
+		return recaudacionRegion;
+	}
+
+	public void setRecaudacionRegion(double recaudacionRegion) {
+		this.recaudacionRegion = recaudacionRegion;
+	}
+
+	
 
 	
 	

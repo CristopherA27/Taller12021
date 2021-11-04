@@ -16,10 +16,10 @@ public class SystemImpl implements SystemI{
 		lSkins = new ListaSkins(100);
 	}
 
-	public boolean ingresarCuenta(String nombreCuenta, String contraseña, String nick, int nivelCuenta, int rpCuenta,String region) {
+	public boolean ingresarCuenta(String nombreCuenta, String contraseña, String nick, int nivelCuenta, int rpCuenta,String region,int recaudacionRegion) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta == null) {
-			cuenta = new Cuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, region);
+			cuenta = new Cuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, region,recaudacionRegion);
 			boolean ingresado = lCuentas.ingresar(cuenta);
 			if(ingresado) {
 				return true;
@@ -47,12 +47,12 @@ public class SystemImpl implements SystemI{
 	}*/
 
 	@Override
-	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String contraseña,String nick, int nivelCuenta, int rpCuenta,String region,String nombrePersonaje,String rol) {
+	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String contraseña,String nick, int nivelCuenta, int rpCuenta,String region,double recaudacionRegion,String nombrePersonaje,String rol) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta != null) {
 			Personaje personaje = cuenta.getListaPersonajes().buscar(nombrePersonaje);
 			if(personaje != null) {
-				cuenta = new Cuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, region);
+				cuenta = new Cuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, region,recaudacionRegion);
 				boolean ingresado = cuenta.getListaPersonajes().ingresar(personaje);
 				//Dberia ir?
 				//boolean ingreso = lCuentas.ingresar(cuenta);
@@ -101,6 +101,7 @@ public class SystemImpl implements SystemI{
 					pagar = tipoSkin;
 					if(cuenta.getRpCuenta()>pagar) {
 						cuenta.setRpCuenta(cuenta.getRpCuenta()-pagar);
+						cuenta.setRecaudacionRegion(cuenta.getRecaudacionRegion()+(pagar*6.15));
 						personaje.getListaSkins().ingresar(skin);
 						//No se  si la linea 106 esl o mismo que la 104
 						cuenta.getListaPersonajes().buscar(nombrePersonaje).getListaSkins().ingresar(skin);
@@ -127,7 +128,7 @@ public class SystemImpl implements SystemI{
 				int pagar = 975;
 				if(cuenta.getRpCuenta()>pagar) {
 					cuenta.getListaPersonajes().ingresar(personaje);
-					personaje.setRecaudacion(personaje.getRecaudacion()+(int)(pagar*6.15));
+					personaje.setRecaudacion(personaje.getRecaudacion()+(pagar*6.15));
 					cuenta.setRpCuenta(cuenta.getRpCuenta()-pagar);
 					return true;
 				}else {
@@ -218,14 +219,14 @@ public class SystemImpl implements SystemI{
 	@Override
 	public String obtenerVentasPorRol() {
 		String dato = "";
-		int recaudacionSUP =0;
-		int recaudacionADC = 0;
-		int recaudacionTOP =0;
-		int recaudacionMID=0;
-		int recaudacionJG = 0;
+		double recaudacionSUP =0;
+		double recaudacionADC = 0;
+		double recaudacionTOP =0;
+		double recaudacionMID=0;
+		double recaudacionJG = 0;
 		for(int i=0;i<lPersonajes.getCant();i++) {
 			Personaje personaje = lPersonajes.getElementoI(i);
-			int recaudacion = personaje.getRecaudacion();
+			double recaudacion = personaje.getRecaudacion();
 			String tipo = personaje.getRol();
 			switch(tipo) {
 			case("SUP"):
@@ -249,16 +250,49 @@ public class SystemImpl implements SystemI{
 		dato+="SUP:"+recaudacionSUP+" ADC:"+recaudacionADC+" TOP:"+recaudacionTOP+" MID:"+recaudacionMID+" JG:"+recaudacionJG;
 		return dato;
 	}
+	
+	public double convertirCLP(int monto) {
+		double montoCLP = monto*6.15;
+		return montoCLP;
+	}
 
 	@Override
 	public String obtenerVentasPorRegion() {
+		String dato = "";
+		double recaudacionLAS =0;
+		double recaudacionLAN = 0;
+		double recaudacionEUW =0;
+		double recaudacionKR=0;
+		double recaudacionNA = 0;
+		double recaudacionRU = 0;
 		for(int i=0;i<lCuentas.getCant();i++) {
 			Cuenta cuenta = lCuentas.getElementoI(i);
-			
-			
+			String regionCuenta = cuenta.getRegion();
+			double recaudacion = cuenta.getRecaudacionRegion();
+			switch(regionCuenta) {
+			case("LAS"):
+				recaudacionLAS+= recaudacion;
+				break;
+			case("LAN"):
+				recaudacionLAN+=recaudacion;
+				break;
+			case("EUW"):
+				recaudacionEUW+=recaudacion;
+				break;
+			case("KR"):
+				recaudacionKR+=recaudacion;
+				break;
+			case("NA"):
+				recaudacionNA+=recaudacion;
+				break;
+			case("RU"):
+				recaudacionRU+=recaudacion;
+				break;
+			default: break;
+			}
 		}
-		
-		return null;
+		dato+="LAS:"+recaudacionLAS+" LAN:"+recaudacionLAN+" EUW:"+recaudacionEUW+" KR:"+recaudacionKR+" NA:"+recaudacionNA+" RU:"+recaudacionRU;
+		return dato;
 	}
 	
 	
