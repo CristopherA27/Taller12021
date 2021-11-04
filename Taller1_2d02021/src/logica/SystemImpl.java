@@ -338,6 +338,24 @@ public class SystemImpl implements SystemI{
 		return dato;
 	}
 	
+	public boolean agregarPersonaje(String nombrePersonaje,String rol,double recaudacion,String nombreSkin,String calidadSkin) {
+		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
+		if(personaje ==null) {
+			personaje = new Personaje(nombrePersonaje, rol, 0);
+			lPersonajes.ingresar(personaje);
+			Skin skin = lSkins.buscar(nombreSkin);
+			if(skin == null) {
+				skin = new Skin(nombreSkin, calidadSkin);
+				personaje.getListaSkins().ingresar(skin);
+				lSkins.ingresar(skin);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	
 	
 	
 }
