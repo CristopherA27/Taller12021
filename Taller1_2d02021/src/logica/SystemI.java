@@ -22,6 +22,6 @@ public interface SystemI {
 	public String obtenerVentasPorRegion();
 	public String obtenerVentasPorPersonaje();
 	public String obtenerPersonajesPorRol();
-	public boolean agregarPersonaje(String nombrePersonaje,String rol,String nombreSkin,String calidadSkin);
+	public boolean agregarPersonaje(String nombrePersonaje,String rol,double recaudacion,String nombreSkin,String calidadSkin);
 }
 

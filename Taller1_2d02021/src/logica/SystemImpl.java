@@ -372,9 +372,17 @@ public class SystemImpl implements SystemI{
 	}
 	
 	public boolean bloquearJugador(String nombreCuenta) {
-		
+		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
+		if(cuenta != null) {
+			
+		}else {
+			throw new NullPointerException("La cuenta "+nombreCuenta+" no existe");
+		}
 		return false;
 	}
+
+	
+	
 	
 }
 	
