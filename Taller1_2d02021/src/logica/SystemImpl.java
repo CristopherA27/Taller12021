@@ -16,19 +16,23 @@ public class SystemImpl implements SystemI{
 		lSkins = new ListaSkins(100);
 	}
 
-	public boolean ingresarCuenta(String nombreCuenta, String contraseña, String nick, int nivelCuenta, int rpCuenta,String region,double recaudacionRegion) {
+	public boolean ingresarCuenta(String nombreCuenta, String contraseña, String nick, int nivelCuenta, int rpCuenta,String region,double recaudacionRegion,boolean estadoCuenta) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta == null) {
-			cuenta = new Cuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, region,recaudacionRegion);
-			boolean ingresado = lCuentas.ingresar(cuenta);
-			if(ingresado) {
-				return true;
+		if(cuenta == null && cuenta.getEstadoCuenta()==true) {
+			cuenta = new Cuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, region,recaudacionRegion, estadoCuenta);
+			if(cuenta.getNombreCuenta().equals(nombreCuenta) && cuenta.getEstadoCuenta()==true) {
+				boolean ingresado = lCuentas.ingresar(cuenta);
+				if(ingresado) {
+					return true;
+				}else {
+					return false;
+				}
 			}else {
-				return false;
+				throw new NullPointerException("La cuenta ingresada esta inhabilitada");
 			}
 		}else {
 			throw new NullPointerException("La Cuenta con el nombre "+nombreCuenta+" ya existe");
-		}	
+		}
 	}
 	
 	/*public boolean ingresarPersonaje(String nombrePersonaje,String rol,int recaudacion) {
@@ -47,12 +51,12 @@ public class SystemImpl implements SystemI{
 	}*/
 
 	@Override
-	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String contraseña,String nick, int nivelCuenta, int rpCuenta,String region,double recaudacionRegion,String nombrePersonaje,String rol) {
+	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String contraseña,String nick, int nivelCuenta, int rpCuenta,String region,double recaudacionRegion,boolean estadoCuenta,String nombrePersonaje,String rol) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta != null) {
+		if(cuenta != null && cuenta.getEstadoCuenta()==true) {
 			Personaje personaje = cuenta.getListaPersonajes().buscar(nombrePersonaje);
 			if(personaje != null) {
-				cuenta = new Cuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, region,recaudacionRegion);
+				cuenta = new Cuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, region,recaudacionRegion,estadoCuenta);
 				boolean ingresado = cuenta.getListaPersonajes().ingresar(personaje);
 				//Dberia ir?
 				//boolean ingreso = lCuentas.ingresar(cuenta);
@@ -91,7 +95,7 @@ public class SystemImpl implements SystemI{
 	
 	public boolean comprarSkin(String nombreCuenta,String nombrePersonaje,String nombreSkin) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta != null) {
+		if(cuenta != null && cuenta.getEstadoCuenta()==true) {
 			Personaje personaje = cuenta.getListaPersonajes().buscar(nombrePersonaje);
 			if(personaje!= null) {
 				Skin skin = personaje.getListaSkins().buscar(nombreSkin);
@@ -122,7 +126,7 @@ public class SystemImpl implements SystemI{
 	
 	public boolean comprarPersonaje(String nombreCuenta,String nombrePersonaje) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta != null) {
+		if(cuenta != null && cuenta.getEstadoCuenta() == true) {
 			Personaje personaje = cuenta.getListaPersonajes().buscar(nombrePersonaje);
 			if(personaje ==null) {
 				int pagar = 975;
@@ -145,7 +149,7 @@ public class SystemImpl implements SystemI{
 	public String obtenerSkinsDisponibles(String nombreCuenta) {
 		String dato = "";
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta != null) {
+		if(cuenta != null && cuenta.getEstadoCuenta()==true) {
 			ListaSkins ls = cuenta.getListaSkins();
 			for(int i=0;i<lSkins.getCant();i++) {
 				if(!ls.getElementoI(i).equals(lSkins.getElementoI(i))) {
@@ -160,7 +164,7 @@ public class SystemImpl implements SystemI{
 	public String obtenerInventario(String nombreCuenta) {
 		String dato = "";
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta != null) {
+		if(cuenta != null && cuenta.getEstadoCuenta()==true) {
 			ListaPersonajes listapersonajes = cuenta.getListaPersonajes();
 			for(int i=0;i<listapersonajes.getCant();i++) {
 				Personaje personaje = listapersonajes.getElementoI(i);
@@ -179,7 +183,7 @@ public class SystemImpl implements SystemI{
 	
 	public boolean recargarRp(String nombreCuenta,int dinero) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta != null) {
+		if(cuenta != null  && cuenta.getEstadoCuenta()==true) {
 			int saldo = cuenta.getRpCuenta()+dinero;
 			cuenta.setRpCuenta(saldo);
 			return true;
@@ -191,7 +195,7 @@ public class SystemImpl implements SystemI{
 	public String obtenerDatosCuenta(String nombreCuenta) {
 		String dato = "";
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta != null) {
+		if(cuenta != null  && cuenta.getEstadoCuenta()==true) {
 			String contraseña = cuenta.getContraseña();
 			int cantCaracteres = contraseña.length();
 			//ojo aca
@@ -204,7 +208,7 @@ public class SystemImpl implements SystemI{
 		
 	public boolean cambiarContraseña(String nombreCuenta,String contraseñaVieja,String contraseñaNueva) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta != null) {
+		if(cuenta != null  && cuenta.getEstadoCuenta()==true) {
 			if(cuenta.getContraseña().equals(contraseñaVieja)) {
 				cuenta.setContraseña(contraseñaNueva);
 				return true;
@@ -374,12 +378,28 @@ public class SystemImpl implements SystemI{
 	public boolean bloquearJugador(String nombreCuenta) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta != null) {
-			lCuentas.eliminar(nombreCuenta);
-			
+			cuenta.setEstadoCuenta(false);
 		}else {
 			throw new NullPointerException("La cuenta "+nombreCuenta+" no existe");
 		}
 		return false;
+	}
+	
+	public String obtenerCuentasMayorAMenor() {
+		String dato = "";
+		int aux;
+		for(int i=0;i<lCuentas.getCant()-1;i++) {
+			for(int j=i+1;j<lCuentas.getCant();j++) {
+				int cuenta1 = lCuentas.getElementoI(i).getNivelCuenta();
+				int cuenta2 = lCuentas.getElementoI(j).getNivelCuenta();
+				if(cuenta1>cuenta2) {
+					aux = cuenta1;
+					cuenta1 = cuenta2;
+					cuenta2 = aux;
+				}
+			}
+		}
+		return null;
 	}
 
 	

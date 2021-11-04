@@ -4,9 +4,9 @@ import logica.*;
 
 public interface SystemI {
 	//lectura txt
-	public boolean ingresarCuenta(String nombreCuenta,String contraseña,String nick,int nivelCuenta,int rpCuenta,String region,double recaudacionRegion);
+	public boolean ingresarCuenta(String nombreCuenta,String contraseña,String nick,int nivelCuenta,int rpCuenta,String region,double recaudacionRegion,boolean estadoCuenta);
 	//public boolean ingresarPersonaje(String nombrePersonaje,String rol,int recaudacion);
-	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String contraseña,String nick, int nivelCuenta, int rpCuenta,String region,double recaudacionRegion,String nombrePersonaje,String rol);
+	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String contraseña,String nick, int nivelCuenta, int rpCuenta,String region,double recaudacionRegion,boolean estadoCuenta,String nombrePersonaje,String rol);
 	public boolean ingresarAsociarPersonajeSkin(String nombrePersonaje,String rol,int recaudacion,String nombreSkin,String calidadSkin);
 	
 	//Menu cliente
@@ -23,5 +23,7 @@ public interface SystemI {
 	public String obtenerVentasPorPersonaje();
 	public String obtenerPersonajesPorRol();
 	public boolean agregarPersonaje(String nombrePersonaje,String rol,double recaudacion,String nombreSkin,String calidadSkin);
+	public String obtenerCuentasMayorAMenor();
+
 }
 

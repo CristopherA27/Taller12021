@@ -10,11 +10,12 @@ public class Cuenta {
 	private int rpCuenta;
 	private String region;
 	private double recaudacionRegion;
+	private boolean estadoCuenta;
 	
 	private ListaPersonajes listaPersonajes;
 	private ListaSkins listaSkins;
 	
-	public Cuenta(String nombreCuenta,String contraseña,String nick,int nivelCuenta,int rpCuenta,String region,double recaudacionRegion) {
+	public Cuenta(String nombreCuenta,String contraseña,String nick,int nivelCuenta,int rpCuenta,String region,double recaudacionRegion,boolean estadoCuenta) {
 		this.nombreCuenta = nombreCuenta;
 		this.contraseña = contraseña;
 		this.nick = nick;
@@ -22,6 +23,7 @@ public class Cuenta {
 		this.rpCuenta = rpCuenta;
 		this.region = region;
 		this.recaudacionRegion = 0;
+		this.estadoCuenta = true;
 		
 		listaPersonajes = new ListaPersonajes(100);
 		listaSkins = new ListaSkins(100);
@@ -73,6 +75,15 @@ public class Cuenta {
 
 	public void setRegion(String region) {
 		this.region = region;
+	}
+	
+
+	public boolean getEstadoCuenta() {
+		return estadoCuenta;
+	}
+
+	public void setEstadoCuenta(boolean estadoCuenta) {
+		this.estadoCuenta = estadoCuenta;
 	}
 
 	public ListaPersonajes getListaPersonajes() {
