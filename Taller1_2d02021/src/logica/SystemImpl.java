@@ -16,7 +16,7 @@ public class SystemImpl implements SystemI{
 		lSkins = new ListaSkins(100);
 	}
 
-	public boolean ingresarCuenta(String nombreCuenta, String contraseña, String nick, int nivelCuenta, int rpCuenta,String region,int recaudacionRegion) {
+	public boolean ingresarCuenta(String nombreCuenta, String contraseña, String nick, int nivelCuenta, int rpCuenta,String region,double recaudacionRegion) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta == null) {
 			cuenta = new Cuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, region,recaudacionRegion);
@@ -292,6 +292,49 @@ public class SystemImpl implements SystemI{
 			}
 		}
 		dato+="LAS:"+recaudacionLAS+" LAN:"+recaudacionLAN+" EUW:"+recaudacionEUW+" KR:"+recaudacionKR+" NA:"+recaudacionNA+" RU:"+recaudacionRU;
+		return dato;
+	}
+	
+	public String obtenerVentasPorPersonaje() {
+		String dato = "";
+		for(int i=0;i<lPersonajes.getCant();i++) {
+			Personaje personaje = lPersonajes.getElementoI(i);
+			double recaudacion = personaje.getRecaudacion();
+			dato+=personaje.getNombrePersonaje()+" recaudo "+recaudacion+"\n";
+		}
+		return dato;
+	}
+	
+	public String obtenerPersonajesPorRol() {
+		String dato = "";
+		int cantSUP =0;
+		int cantADC =0;
+		int cantTOP =0;
+		int cantMID =0;
+		int cantJG =0;
+		for(int i=0;i<lPersonajes.getCant();i++) {
+			Personaje personaje = lPersonajes.getElementoI(i);
+			String rol = personaje.getRol();
+			switch(rol) {
+			case("SUP"):
+				cantSUP+=1;
+				break;
+			case("ADC"):
+				cantADC +=1;
+				break;
+			case("TOP"):
+				cantTOP+=1;
+				break;
+			case("MID"):
+				cantMID+=1;
+				break;
+			case("JG"):
+				cantJG+=1;
+				break;
+			default: break;
+			}	
+		}
+		dato+="SUP:"+cantSUP+" ADC:"+cantADC+" TOP:"+cantTOP+" MID:"+cantMID+" JG:"+cantJG;
 		return dato;
 	}
 	
