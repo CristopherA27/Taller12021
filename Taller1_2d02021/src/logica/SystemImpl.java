@@ -19,7 +19,7 @@ public class SystemImpl implements SystemI{
 	public boolean ingresarCuenta(String nombreCuenta, String contraseña, String nick, int nivelCuenta, int rpCuenta,String region,double recaudacionRegion,boolean estadoCuenta) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta == null && cuenta.getEstadoCuenta()==true) {
-			cuenta = new Cuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, region,recaudacionRegion, estadoCuenta);
+			cuenta = new Cuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, region,0, true);
 			if(cuenta.getNombreCuenta().equals(nombreCuenta) && cuenta.getEstadoCuenta()==true) {
 				boolean ingresado = lCuentas.ingresar(cuenta);
 				if(ingresado) {
