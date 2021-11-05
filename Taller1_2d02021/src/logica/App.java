@@ -22,6 +22,7 @@ public class App {
 			int cont=0;
 			int cont2 = 0;
 			for(int i=0;i<cantPersonajes;i++) {
+				//HACER UN CONTADOR A LINICIO DE ESTE CILO Y QUE SUME DESPUES DE LEER LAS KSINS DE LOS PERSONAJES Y EL FINAL DE ESE CONTADOR SERA CUANDO EMPEIZE A LEER EL NUEVO PERSONAJE 
 				String nombrePersonaje = partes[avance+cont];
 				int cantSkins = Integer.parseInt(partes[7+cont]);
 				for(int j=0;j<cantSkins;j++) {
