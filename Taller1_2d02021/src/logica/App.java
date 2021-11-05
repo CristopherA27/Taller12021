@@ -19,36 +19,20 @@ public class App {
 			int rpCuenta = Integer.parseInt(partes[4]);
 			int cantPersonajes = Integer.parseInt(partes[5]);
 			int avance = 6;
-			int cont=0;
-			int cont2 = 0;
+			int acumu = 8;
 			for(int i=0;i<cantPersonajes;i++) {
 				//HACER UN CONTADOR A LINICIO DE ESTE CILO Y QUE SUME DESPUES DE LEER LAS KSINS DE LOS PERSONAJES Y EL FINAL DE ESE CONTADOR SERA CUANDO EMPEIZE A LEER EL NUEVO PERSONAJE 
-				String nombrePersonaje = partes[avance+cont];
-				int cantSkins = Integer.parseInt(partes[7+cont]);
+				String nombrePersonaje = partes[avance];
+				int cantSkins = Integer.parseInt(partes[avance+1]);
 				for(int j=0;j<cantSkins;j++) {
-					if(cantSkins<=1) {
-						String nombreSkin = partes[8+cont];	
-					}else {
-						String nombreSkin = partes[8+cont2];
-					}
-					cont = cantSkins+cantPersonajes;
-					cont2 = cont-cantSkins;
-					
-					
+					String nombreSkin = partes[acumu];	
+					acumu++;
 				}
+				avance = acumu;
+				acumu+=2;
 			}
-			String region = partes[12];
-			try {
-				boolean ingresado =system.ingresarCuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, region, 0, true);
-				if(ingresado) {
-					
-				}
-				if(!ingresado) {
-					System.out.println("La cuenta "+nombreCuenta+" ya existe");
-				}
-			}catch (Exception ex) {
-				System.out.println("\t"+ex.getMessage());
-			}	
+			String region = partes[avance];
+			
 		}
 	}
 	
