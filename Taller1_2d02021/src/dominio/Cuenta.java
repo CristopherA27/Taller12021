@@ -1,7 +1,7 @@
 package dominio;
 
 import logica.*;
-
+//Soy mas vio que la cresta
 public class Cuenta {
 	private String nombreCuenta;
 	private String contraseña;
