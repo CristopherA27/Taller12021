@@ -35,7 +35,7 @@ public class SystemImpl implements SystemI{
 		}
 	}
 	
-	/*public boolean ingresarPersonaje(String nombrePersonaje,String rol,int recaudacion) {
+	public boolean ingresarPersonaje(String nombrePersonaje,String rol,double recaudacion) {
 		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
 		if(personaje == null) {
 			personaje = new Personaje(nombrePersonaje, rol, recaudacion);
@@ -48,28 +48,31 @@ public class SystemImpl implements SystemI{
 		}else {
 			throw new NullPointerException("El persona con el nombre "+nombrePersonaje+" ya existe");
 		}
-	}*/
+	}
 
 	@Override
 	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String contraseña,String nick, int nivelCuenta, int rpCuenta,String region,double recaudacionRegion,boolean estadoCuenta,String nombrePersonaje,String rol) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta != null && cuenta.getEstadoCuenta()==true) {
-			Personaje personaje = cuenta.getListaPersonajes().buscar(nombrePersonaje);
-			if(personaje != null) {
-				cuenta = new Cuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, region,recaudacionRegion,estadoCuenta);
-				boolean ingresado = cuenta.getListaPersonajes().ingresar(personaje);
-				//Dberia ir?
-				//boolean ingreso = lCuentas.ingresar(cuenta);
-				if(ingresado) {
-					return true;
+			Personaje personaje = lPersonajes.buscar(nombrePersonaje);
+			if(personaje !=null) {
+				personaje = cuenta.getListaPersonajes().buscar(nombrePersonaje);
+				if(personaje == null) {
+					boolean ingresado = cuenta.getListaPersonajes().ingresar(personaje);
+					if(ingresado) {
+						return true;
+					}else {
+						return false;
+					}
 				}else {
-					return false;
+					throw new NullPointerException("Ya existe el"+nombrePersonaje+" en la cuenta");
 				}
-			}else {
-				throw new NullPointerException("No existe la cuenta "+nombrePersonaje);
+			}
+			else {
+				throw new NullPointerException("El personaje "+nombrePersonaje+" no existe en el juego");
 			}
 		}else {
-			throw new NullPointerException("No exite el personaje "+nombreCuenta);
+			throw new NullPointerException("No existe la cuenta "+nombreCuenta);
 		}
 	}
 
@@ -78,9 +81,9 @@ public class SystemImpl implements SystemI{
 		if(personaje != null) {
 			Skin skin = personaje.getListaSkins().buscar(nombreSkin);
 			if(skin != null) {
-				personaje = new Personaje(nombrePersonaje, rol, recaudacion);
 				boolean ingresado = personaje.getListaSkins().ingresar(skin);
-				if(ingresado) {
+				boolean ingresarSkin = lSkins.ingresar(skin);
+				if(ingresado && ingresarSkin) {
 					return true;
 				}else {
 					return false;
