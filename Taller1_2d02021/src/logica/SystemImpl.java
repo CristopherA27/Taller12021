@@ -390,19 +390,29 @@ public class SystemImpl implements SystemI{
 	
 	public String obtenerCuentasMayorAMenor() {
 		String dato = "";
-		int aux;
+		int aux=0;
+		String aux2 = "";
 		for(int i=0;i<lCuentas.getCant()-1;i++) {
 			for(int j=i+1;j<lCuentas.getCant();j++) {
-				int cuenta1 = lCuentas.getElementoI(i).getNivelCuenta();
-				int cuenta2 = lCuentas.getElementoI(j).getNivelCuenta();
-				if(cuenta1>cuenta2) {
-					aux = cuenta1;
-					cuenta1 = cuenta2;
-					cuenta2 = aux;
+				Cuenta cuenta1 = lCuentas.getElementoI(i);
+				Cuenta cuenta2 = lCuentas.getElementoI(j);
+				int nv1 = cuenta1.getNivelCuenta();
+				int nv2 = cuenta2.getNivelCuenta();
+				String name1 = cuenta1.getNombreCuenta();
+				String name2 = cuenta2.getNombreCuenta();
+				if(cuenta1.getNivelCuenta()>cuenta2.getNivelCuenta()) {
+					aux = nv1;
+					nv1 = nv2;
+					nv2= aux;
+					
+					aux2 = name1;
+					name1=name2;
+					name2=aux2;
 				}
+				dato+= aux2+" "+aux+"\n";
 			}
 		}
-		return null;
+		return dato;
 	}
 
 	

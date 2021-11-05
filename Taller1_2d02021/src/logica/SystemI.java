@@ -16,7 +16,7 @@ public interface SystemI {
 	public String obtenerInventario(String nombreCuenta);
 	public boolean recargarRp(String nombreCuenta,int dinero);
 	public boolean cambiarContraseña(String nombreCuenta,String contraseñaVieja,String contraseñaNueva);
-
+	
 	//menu admin
 	public String obtenerVentasPorRol();
 	public String obtenerVentasPorRegion();
