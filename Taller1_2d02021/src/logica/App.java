@@ -20,6 +20,7 @@ public class App {
 			String region = partes[5];
 			try {
 				boolean ingresado =system.ingresarCuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, region, 0, true);
+				
 				if(!ingresado) {
 					System.out.println("La cuenta "+nombreCuenta+" ya existe");
 				}
