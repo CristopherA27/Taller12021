@@ -62,8 +62,13 @@ public class App {
 			try {
 				boolean ingreso = system.ingresarPersonaje(nombrePersonaje, rol);
 				if(ingreso) {
-					
-					
+					int cantSkins = Integer.parseInt(partes[2]);
+					int cont = 3;
+					for(int i=0;i<cantSkins;i++) {
+						String nombreSkin = partes[cont];
+						String calidadSkin = partes[cont+1];
+						cont+=2;
+					}
 					try {
 						
 					}catch(Exception ex) {
