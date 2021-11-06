@@ -8,10 +8,10 @@ public class Personaje {
 	private double recaudacion;
 	private ListaSkins listaSkins;
 	
-	public Personaje(String nombrePersonaje,String rol,double recaudacion) {
+	public Personaje(String nombrePersonaje,String rol) {
 		this.nombrePersonaje = nombrePersonaje;
 		this.rol = rol;
-		this.recaudacion = 0;
+		recaudacion = 0;
 		listaSkins = new ListaSkins(100);
 	}
 

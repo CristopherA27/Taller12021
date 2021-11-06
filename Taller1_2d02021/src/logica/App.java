@@ -17,21 +17,36 @@ public class App {
 			String nick = partes[2];
 			int nivelCuenta = Integer.parseInt(partes[3]);
 			int rpCuenta = Integer.parseInt(partes[4]);
-			int cantPersonajes = Integer.parseInt(partes[5]);
-			int avance = 6;
-			int acumu = 8;
-			for(int i=0;i<cantPersonajes;i++) {
-				//HACER UN CONTADOR A LINICIO DE ESTE CILO Y QUE SUME DESPUES DE LEER LAS KSINS DE LOS PERSONAJES Y EL FINAL DE ESE CONTADOR SERA CUANDO EMPEIZE A LEER EL NUEVO PERSONAJE 
-				String nombrePersonaje = partes[avance];
-				int cantSkins = Integer.parseInt(partes[avance+1]);
-				for(int j=0;j<cantSkins;j++) {
-					String nombreSkin = partes[acumu];	
-					acumu++;
+			try {
+				boolean ingresado = system.ingresarCuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta);
+				if(ingresado) {
+					int cantPersonajes = Integer.parseInt(partes[5]);
+					int avance = 6;
+					int acumu = 8;
+					for(int i=0;i<cantPersonajes;i++) {
+						String nombrePersonaje = partes[avance];
+						int cantSkins = Integer.parseInt(partes[avance+1]);
+						for(int j=0;j<cantSkins;j++) {
+							String nombreSkin = partes[acumu];	
+							acumu++;
+						}
+						avance = acumu;
+						acumu+=2;
+						try {
+							boolean ingresoAsociar = system.ingresarAsociarCuentaPersonaje(nombreCuenta, nombrePersonaje);
+							if(ingresoAsociar) {
+								
+							}
+						}catch(Exception ex) {
+							System.out.println(ex.getMessage());
+						}
+					}
+					String region = partes[avance];
+					system.asignarRegion(nombreCuenta, region);
 				}
-				avance = acumu;
-				acumu+=2;
+			}catch(Exception ex) {
+				System.out.println(ex.getMessage());
 			}
-			String region = partes[avance];
 			
 		}
 	}
@@ -45,7 +60,7 @@ public class App {
 			String nombrePersonaje = partes[0];
 			String rol = partes[1];
 			try {
-				boolean ingreso = system.ingresarPersonaje(nombrePersonaje, rol, 0);
+				boolean ingreso = system.ingresarPersonaje(nombrePersonaje, rol);
 				if(!ingreso) {
 					System.out.println("El "+nombrePersonaje+" ya existe");
 				}

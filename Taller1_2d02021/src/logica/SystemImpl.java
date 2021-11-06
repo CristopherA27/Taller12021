@@ -16,10 +16,10 @@ public class SystemImpl implements SystemI{
 		lSkins = new ListaSkins(100);
 	}
 
-	public boolean ingresarCuenta(String nombreCuenta, String contraseña, String nick, int nivelCuenta, int rpCuenta,String region,double recaudacionRegion,boolean estadoCuenta) {
+	public boolean ingresarCuenta(String nombreCuenta, String contraseña, String nick, int nivelCuenta, int rpCuenta) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta == null && cuenta.getEstadoCuenta()==true) {
-			cuenta = new Cuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta, region,0, true);
+			cuenta = new Cuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta);
 			if(cuenta.getNombreCuenta().equals(nombreCuenta) && cuenta.getEstadoCuenta()==true) {
 				boolean ingresado = lCuentas.ingresar(cuenta);
 				if(ingresado) {
@@ -35,10 +35,29 @@ public class SystemImpl implements SystemI{
 		}
 	}
 	
-	public boolean ingresarPersonaje(String nombrePersonaje,String rol,double recaudacion) {
+	public boolean asignarRegion(String nombreCuenta,String region) {
+		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
+		if(cuenta != null) {
+			cuenta.setRegion(region);
+			return true;
+		}else {
+			throw new NullPointerException("La "+nombreCuenta+" no existe");
+		}
+	}
+	
+	public String obtenerRegion(String nombreCuenta) {
+		String dato = "";
+		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
+		if(cuenta !=null) {
+			dato+=cuenta.getRegion();
+		}
+		return dato;
+	}
+	
+	public boolean ingresarPersonaje(String nombrePersonaje,String rol) {
 		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
 		if(personaje == null) {
-			personaje = new Personaje(nombrePersonaje, rol, recaudacion);
+			personaje = new Personaje(nombrePersonaje, rol);
 			boolean ingresado = lPersonajes.ingresar(personaje);
 			if(ingresado) {
 				return true;
@@ -51,7 +70,7 @@ public class SystemImpl implements SystemI{
 	}
 
 	@Override
-	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String contraseña,String nick, int nivelCuenta, int rpCuenta,String region,double recaudacionRegion,boolean estadoCuenta,String nombrePersonaje,String rol) {
+	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String nombrePersonaje) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta != null && cuenta.getEstadoCuenta()==true) {
 			Personaje personaje = lPersonajes.buscar(nombrePersonaje);
@@ -76,7 +95,7 @@ public class SystemImpl implements SystemI{
 		}
 	}
 
-	public boolean ingresarAsociarPersonajeSkin(String nombrePersonaje, String rol,int recaudacion, String nombreSkin,String calidadSkin) {
+	public boolean ingresarAsociarPersonajeSkin(String nombrePersonaje, String rol, String nombreSkin,String calidadSkin) {
 		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
 		if(personaje != null) {
 			Skin skin = personaje.getListaSkins().buscar(nombreSkin);
@@ -345,10 +364,10 @@ public class SystemImpl implements SystemI{
 		return dato;
 	}
 	
-	public boolean agregarPersonaje(String nombrePersonaje,String rol,double recaudacion,String nombreSkin,String calidadSkin) {
+	public boolean agregarPersonaje(String nombrePersonaje,String rol,String nombreSkin,String calidadSkin) {
 		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
 		if(personaje ==null) {
-			personaje = new Personaje(nombrePersonaje, rol, 0);
+			personaje = new Personaje(nombrePersonaje, rol);
 			lPersonajes.ingresar(personaje);
 			Skin skin = lSkins.buscar(nombreSkin);
 			if(skin == null) {
@@ -414,6 +433,7 @@ public class SystemImpl implements SystemI{
 		}
 		return dato;
 	}
+
 
 	
 	

@@ -15,15 +15,15 @@ public class Cuenta {
 	private ListaPersonajes listaPersonajes;
 	private ListaSkins listaSkins;
 	
-	public Cuenta(String nombreCuenta,String contraseña,String nick,int nivelCuenta,int rpCuenta,String region,double recaudacionRegion,boolean estadoCuenta) {
+	public Cuenta(String nombreCuenta,String contraseña,String nick,int nivelCuenta,int rpCuenta) {
 		this.nombreCuenta = nombreCuenta;
 		this.contraseña = contraseña;
 		this.nick = nick;
 		this.nivelCuenta = nivelCuenta;
 		this.rpCuenta = rpCuenta;
-		this.region = region;
-		this.recaudacionRegion = 0;
-		this.estadoCuenta = true;
+		region = null;
+		recaudacionRegion = 0;
+		estadoCuenta = true;
 		
 		listaPersonajes = new ListaPersonajes(100);
 		listaSkins = new ListaSkins(100);
