@@ -9,7 +9,10 @@ public interface SystemI {
 	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String nombrePersonaje);
 	public boolean ingresarAsociarPersonajeSkin(String nombrePersonaje,String rol,String nombreSkin,String calidadSkin);
 	public boolean asignarRegion(String nombreCuenta,String region);
+	public boolean ingresarEstadistica(String nombrePersonaje,double recaudacion);
+	
 	//Menu cliente
+	
 	public boolean comprarSkin(String nombreCuenta,String nombrePersonaje,String nombreSkin);
 	public boolean comprarPersonaje(String nombreCuenta,String nombrePersonaje) ;
 	public String obtenerSkinsDisponibles(String nombreCuenta);

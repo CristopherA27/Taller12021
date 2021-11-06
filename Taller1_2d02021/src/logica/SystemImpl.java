@@ -45,15 +45,6 @@ public class SystemImpl implements SystemI{
 		}
 	}
 	
-	public String obtenerRegion(String nombreCuenta) {
-		String dato = "";
-		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta !=null) {
-			dato+=cuenta.getRegion();
-		}
-		return dato;
-	}
-	
 	public boolean ingresarPersonaje(String nombrePersonaje,String rol) {
 		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
 		if(personaje == null) {
@@ -116,6 +107,15 @@ public class SystemImpl implements SystemI{
 		}
 	}
 	
+	public boolean ingresarEstadistica(String nombrePersonaje,double recaudacion) {
+		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
+		if(personaje!=null) {
+			personaje.setRecaudacion(recaudacion);
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean comprarSkin(String nombreCuenta,String nombrePersonaje,String nombreSkin) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta != null && cuenta.getEstadoCuenta()==true) {
@@ -162,7 +162,7 @@ public class SystemImpl implements SystemI{
 					return false;
 				}
 			}else {
-				throw new NullPointerException("El "+nombrePersonaje+" no existe");
+				throw new NullPointerException("El "+nombrePersonaje+" ya existe");
 			}
 		}else {
 			throw new NullPointerException("La cuenta "+nombreCuenta+" no existe");
@@ -392,7 +392,7 @@ public class SystemImpl implements SystemI{
 			if(skin ==null) {
 				skin = new Skin(nombreSkin, calidadSkin);
 				personaje.getListaSkins().ingresar(skin);
-				lSkins.ingresar(skin);
+				//lSkins.ingresar(skin);
 				return true;
 			}else {
 				return false;
