@@ -61,8 +61,14 @@ public class App {
 			String rol = partes[1];
 			try {
 				boolean ingreso = system.ingresarPersonaje(nombrePersonaje, rol);
-				if(!ingreso) {
-					System.out.println("El "+nombrePersonaje+" ya existe");
+				if(ingreso) {
+					
+					
+					try {
+						
+					}catch(Exception ex) {
+						System.out.println("\t"+ex.getMessage());
+					}
 				}
 			}catch (Exception ex) {
 				System.out.println("\t"+ex.getMessage());
