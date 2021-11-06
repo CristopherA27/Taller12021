@@ -77,7 +77,8 @@ public class SystemImpl implements SystemI{
 			if(personaje !=null) {
 				personaje = cuenta.getListaPersonajes().buscar(nombrePersonaje);
 				if(personaje == null) {
-					boolean ingresado = cuenta.getListaPersonajes().ingresar(personaje);
+					Personaje p = new Personaje(nombrePersonaje, personaje.getRol());
+					boolean ingresado = cuenta.getListaPersonajes().ingresar(p);
 					if(ingresado) {
 						return true;
 					}else {

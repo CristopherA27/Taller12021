@@ -34,8 +34,8 @@ public class App {
 						acumu+=2;
 						try {
 							boolean ingresoAsociar = system.ingresarAsociarCuentaPersonaje(nombreCuenta, nombrePersonaje);
-							if(ingresoAsociar) {
-								
+							if(!ingresoAsociar) {
+								System.out.println("El personaje no se pudo ingresar a la cuenta por que no queda espacio");
 							}
 						}catch(Exception ex) {
 							System.out.println(ex.getMessage());
