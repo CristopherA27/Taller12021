@@ -438,7 +438,11 @@ public class SystemImpl implements SystemI{
 		}
 		return dato;
 	}
-
+	
+	public boolean existeCuenta(String nombreCuenta) {
+		Cuenta cuenta = 
+		
+	}
 
 	
 	

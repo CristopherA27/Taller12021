@@ -105,6 +105,24 @@ public class App {
 		}
 	}
 	
+	public static boolean inicioSesion(SystemI system) {
+		System.out.print("Ingrese el NombreCuenta: ");
+		String nombreCuenta = leer.nextLine();
+		if(nombreCuenta.equalsIgnoreCase("ADMIN")) {
+			System.out.println("Ingrese la contraseña: ");
+			String contraseña = leer.nextLine();
+			if(contraseña.equalsIgnoreCase("ADMIN")) {
+				menuAdmin(system);
+				return true;
+			}else {
+				System.out.println("Contraseña incorrecta....");
+				return false;
+			}
+		}else {
+			
+		}
+	}
+	
 	public static void menuUsuario(SystemI system) {
 		boolean cierre = true;
 		System.out.println("Bienvenido al Menu Usuario");
@@ -184,7 +202,7 @@ public class App {
 	    		break;
 	    	}
 		}
-		System.out.println("\tSALIENDO DEL MENU USUARIO");
+		System.out.println("\tSALIENDO DEL MENU CLIENTE");
 	}
 	
 	
