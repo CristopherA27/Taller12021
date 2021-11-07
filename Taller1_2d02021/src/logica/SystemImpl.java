@@ -136,7 +136,7 @@ public class SystemImpl implements SystemI{
 						return false;
 					}	
 				}else {
-					throw new NullPointerException("La skin con nombre "+nombreSkin+" ya existe");
+					throw new NullPointerException("La skin con nombre "+nombreSkin+" ya existe en el personaje");
 				}
 			}else {
 				throw new NullPointerException("El "+nombrePersonaje+" no existe");
@@ -460,6 +460,7 @@ public class SystemImpl implements SystemI{
 		}
 	}
 	
+	
 	public String obtenerSkinsPersonaje(String nombreCuenta,String nombrePersonaje) {
 		String dato = "";
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
@@ -482,6 +483,23 @@ public class SystemImpl implements SystemI{
 		return dato;
 	}
 	
+	public boolean existePersonaje(String nombrePersonaje) {
+		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
+		if(personaje != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean existeSkin(String nombreSkin) {
+		Skin skin = lSkins.buscar(nombreSkin);
+		if(skin != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	
 	
 }

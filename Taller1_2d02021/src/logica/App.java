@@ -185,9 +185,31 @@ public class App {
 	    	String opcion = leer.nextLine();
 	    	switch(opcion) {
 	    		case("A"):
-	    			System.out.println("Ingrese el nombre del personaje al cual desea comprarle la Skin: ");
+	    			System.out.print("Ingrese el nombre del personaje al cual desea comprarle la Skin: ");
 	    			String nombrePersonaje = leer.nextLine();
-	    		
+	    			boolean existePersonaje = system.existePersonaje(nombrePersonaje);
+	    			if(existePersonaje) {
+	    				System.out.println(system.obtenerSkinsPersonaje(nombreCuenta, nombrePersonaje));
+	    				System.out.print("Ingrese el nombre de la skin que desea comprar: ");
+	    				String nombreSkin = leer.nextLine();
+	    				boolean existeSkin = system.existeSkin(nombreSkin);
+	    				if(existeSkin) {
+	    					try {
+	    						boolean comprar = system.comprarSkin(nombreCuenta, nombrePersonaje, nombreSkin);
+	    						if(comprar) {
+	    							System.out.println("La skin fue comprada con exito..");
+	    						}else {
+	    							System.out.println("El cliente no tiene suficiente dinero como pra comprar la skin");
+	    						}
+		    				}catch(Exception ex) {
+		    					System.out.println("\t"+ex.getMessage());
+		    				}
+	    				}else {
+	    					System.out.println("Error al ingresar la skin a comprar");
+	    				}
+	    			}else {
+	    				System.out.println("Error al ingresar el personaje");
+	    			}	
 	    			break;
 	    		case("B"):
 	    			break;
