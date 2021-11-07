@@ -212,12 +212,31 @@ public class App {
 	    			}	
 	    			break;
 	    		case("B"):
+	    			System.out.println("Ingrese el nombre del personaje que desea comprar: ");
+	    			nombrePersonaje = leer.nextLine();
+	    			boolean existeElPersonaje = system.existePersonaje(nombrePersonaje);
+	    			if(existeElPersonaje) {
+	    				try {
+	    					boolean comprarPersonaje = system.comprarPersonaje(nombreCuenta, nombrePersonaje);
+	    					if(comprarPersonaje) {
+	    						System.out.println("Personaje comprado con exito");
+	    					}else {
+	    						System.out.println("No tiene suficiente dinero para comprar al personaje");
+	    					}
+	    				}catch(Exception ex) {
+	    					System.out.println("\t"+ex.getMessage());
+	    				}
+	    			}
 	    			break;
 	    		case("C"):
+	    			System.out.println(system.obtenerSkinsDisponibles(nombreCuenta));
 	    			break;
 	    		case("D"):
+	    			System.out.println(system.obtenerInventario(nombreCuenta));
 	    			break;
 	    		case("E"):
+	    			System.out.println("Cuanto dinero en CLP desea agregar a la cuenta: ");
+	    		    int dinero = leer.nextInt();
 	    			break;
 	    		case("F"):
 	    			break;
