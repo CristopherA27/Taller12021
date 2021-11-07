@@ -109,7 +109,7 @@ public class App {
 		System.out.print("Ingrese el NombreCuenta: ");
 		String nombreCuenta = leer.nextLine();
 		if(nombreCuenta.equalsIgnoreCase("ADMIN")) {
-			System.out.println("Ingrese la contraseña: ");
+			System.out.print("Ingrese la contraseña: ");
 			String contraseña = leer.nextLine();
 			if(contraseña.equalsIgnoreCase("ADMIN")) {
 				menuAdmin(system);
@@ -119,11 +119,57 @@ public class App {
 				return false;
 			}
 		}else {
+			boolean existeLaCuenta = system.existeCuenta(nombreCuenta);
+			if(existeLaCuenta) {
+				System.out.print("Ingrese la contraseña: ");
+				String contraseña = leer.nextLine();
+				boolean contraCorrect = system.contraseñaCorrecta(nombreCuenta, contraseña);
+				if(contraCorrect) {
+					menuUsuario(system, nombreCuenta);
+					return true;
+				}else {
+					System.out.println("Contraseña incorrecta...");
+					return false;
+				}
+			}else {
+				System.out.print("Desea registrar una nueva cuenta? (SI-NO)");
+				String respuesta = leer.nextLine();
+				while(!respuesta.equalsIgnoreCase("Si") && !respuesta.equalsIgnoreCase("No")) {
+					System.out.println("Ingrese (SI) o (NO) por favor.....");
+					System.out.print("Desea registrar una nueva cuenta? (SI-NO)");
+					respuesta = leer.nextLine();
+				}
+				if(respuesta.equalsIgnoreCase("Si")) {
+					System.out.print("NombreCuenta: "); nombreCuenta = leer.nextLine();
+					System.out.println("Contraseña: "); String contraseña = leer.nextLine();
+					System.out.println("Nick: ");String nick = leer.nextLine();
+					int nivelCuenta=0;
+					int rpCuenta= 0;
+					boolean ingresado = system.ingresarCuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta);
+					if(ingresado) {
+						System.out.println("Region: "); String region = leer.nextLine();
+						boolean ingresoRegion = system.asignarRegion(nombreCuenta, region);
+						if(ingresoRegion) {
+							System.out.println("Cuenta ingresada con exito");
+						}else {
+							System.out.println("No se pudo ingresar la cuenta");
+						}
+					}else {
+						System.out.println("Error al ingresar la cuenta, No queda espacio suficiente");
+		
+					}
+					return false;
+				}else {
+					System.out.println("Usted no ingreso la cuenta");
+					return false;
+				}	
+			}
 			
 		}
+
 	}
 	
-	public static void menuUsuario(SystemI system) {
+	public static void menuUsuario(SystemI system,String nombreCuenta) {
 		boolean cierre = true;
 		System.out.println("Bienvenido al Menu Usuario");
 		while(cierre) {

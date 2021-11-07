@@ -440,8 +440,25 @@ public class SystemImpl implements SystemI{
 	}
 	
 	public boolean existeCuenta(String nombreCuenta) {
-		Cuenta cuenta = 
-		
+		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
+		if(cuenta != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean contraseñaCorrecta(String nombreCuenta,String contraseña) {
+		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
+		if(cuenta != null) {
+			if(cuenta.getContraseña().equalsIgnoreCase(contraseña)) {
+				return true;
+			}else {
+				return false;
+			}
+		}else {
+			throw new NullPointerException("La cuenta "+nombreCuenta+" no existe");
+		}
 	}
 
 	
