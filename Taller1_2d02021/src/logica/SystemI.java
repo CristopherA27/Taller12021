@@ -12,6 +12,7 @@ public interface SystemI {
 	public boolean ingresarEstadistica(String nombrePersonaje,double recaudacion);
 	public boolean existeCuenta(String nombreCuenta);
 	public boolean contraseñaCorrecta(String nombreCuenta,String contraseña);
+	public String obtenerSkinsPersonaje(String nombreCuenta,String nombrePersonaje);
 	//Menu cliente
 	
 	public boolean comprarSkin(String nombreCuenta,String nombrePersonaje,String nombreSkin);

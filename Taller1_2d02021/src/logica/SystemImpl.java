@@ -130,7 +130,6 @@ public class SystemImpl implements SystemI{
 						cuenta.setRpCuenta(cuenta.getRpCuenta()-pagar);
 						cuenta.setRecaudacionRegion(cuenta.getRecaudacionRegion()+(pagar*6.15));
 						personaje.getListaSkins().ingresar(skin);
-						//No se  si la linea 106 esl o mismo que la 104
 						cuenta.getListaPersonajes().buscar(nombrePersonaje).getListaSkins().ingresar(skin);
 						return true;
 					}else {
@@ -460,7 +459,28 @@ public class SystemImpl implements SystemI{
 			throw new NullPointerException("La cuenta "+nombreCuenta+" no existe");
 		}
 	}
-
+	
+	public String obtenerSkinsPersonaje(String nombreCuenta,String nombrePersonaje) {
+		String dato = "";
+		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
+		Personaje personajeCuenta = cuenta.getListaPersonajes().buscar(nombrePersonaje);
+		Personaje personajeLista = lPersonajes.buscar(nombrePersonaje);
+		if(personajeCuenta != null) {
+			ListaSkins lskinsCuenta = personajeCuenta.getListaSkins();
+			ListaSkins lskinsListaGeneral = personajeLista.getListaSkins();
+			dato += "Las skins de "+personajeCuenta+" son: "+"\n";
+			for(int i=0;i<lskinsListaGeneral.getCant();i++) {
+				Skin skinCuenta = lskinsCuenta.getElementoI(i);
+				Skin skinGeneral = lskinsListaGeneral.getElementoI(i);
+				if(!skinCuenta.getNombreSkin().equals(skinGeneral.getNombreSkin())) {
+					dato+="\t"+skinGeneral.getNombreSkin()+"\n";
+				}
+			}
+		}else {
+			throw new NullPointerException("El "+personajeCuenta+" no existe");
+		}
+		return dato;
+	}
 	
 	
 	

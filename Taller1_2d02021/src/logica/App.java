@@ -185,6 +185,9 @@ public class App {
 	    	String opcion = leer.nextLine();
 	    	switch(opcion) {
 	    		case("A"):
+	    			System.out.println("Ingrese el nombre del personaje al cual desea comprarle la Skin: ");
+	    			String nombrePersonaje = leer.nextLine();
+	    		
 	    			break;
 	    		case("B"):
 	    			break;
