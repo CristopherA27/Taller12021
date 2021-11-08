@@ -429,9 +429,6 @@ public class App {
 			
 	}
 	
-	
-	
-	
 	public static void main(String [] args) throws IOException {
 		SystemI system = new SystemImpl();
 		leerCuentas(system);
@@ -455,7 +452,7 @@ public class App {
 		leer.close();
 	}
 	
-	private static void sobreescribir(SystemI system) {
+	public static void sobreescribir(SystemI system) {
 		
 	}
 
