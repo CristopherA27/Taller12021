@@ -18,14 +18,22 @@ public class ListaPersonajes {
 	}
 	
 	public boolean ingresar(Personaje personaje) {
-		if(cant<max) {
-			listaPersonajes[cant] = personaje;
-			cant++;
-			return true;
+		boolean existe = false;
+		for(int i=0;i<cant;i++) {
+			if(listaPersonajes[i].getNombrePersonaje().equals((personaje.getNombrePersonaje()))) {
+				existe = true;
+			}
+		}
+		if(existe == false) {
+			if(cant<max) {
+				listaPersonajes[cant] = personaje;
+				cant++;
+				return true;
+			}
 		}
 		return false;
 	}
-	
+
 	public Personaje buscar(String nombrePersonaje) {
 		for(int i=0;i<cant;i++) {
 			if(listaPersonajes[i].getNombrePersonaje().equals(nombrePersonaje)) {

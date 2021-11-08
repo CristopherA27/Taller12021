@@ -18,7 +18,7 @@ public class SystemImpl implements SystemI{
 
 	public boolean ingresarCuenta(String nombreCuenta, String contraseña, String nick, int nivelCuenta, int rpCuenta) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta == null && cuenta.getEstadoCuenta()==true) {
+		if(cuenta == null ) {
 			cuenta = new Cuenta(nombreCuenta, contraseña, nick, nivelCuenta, rpCuenta);
 			if(cuenta.getNombreCuenta().equals(nombreCuenta) && cuenta.getEstadoCuenta()==true) {
 				boolean ingresado = lCuentas.ingresar(cuenta);
@@ -46,24 +46,19 @@ public class SystemImpl implements SystemI{
 	}
 	
 	public boolean ingresarPersonaje(String nombrePersonaje,String rol) {
-		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
-		if(personaje == null) {
-			personaje = new Personaje(nombrePersonaje, rol);
-			boolean ingresado = lPersonajes.ingresar(personaje);
-			if(ingresado) {
-				return true;
-			}else {
-				return false;
-			}
-		}else {
-			throw new NullPointerException("El persona con el nombre "+nombrePersonaje+" ya existe");
-		}
+		System.out.println(nombrePersonaje);
+		Personaje personaje = new Personaje(nombrePersonaje,rol);
+		return lPersonajes.ingresar(personaje);
 	}
 
 	@Override
 	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String nombrePersonaje) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta != null && cuenta.getEstadoCuenta()==true) {
+		if(cuenta != null ) {
+			/*for(int i=0;i<lPersonajes.getCant();i++) {
+				Personaje per = lPersonajes.getElementoI(i);
+				System.out.println(per.getNombrePersonaje());
+			}*/
 			Personaje personaje = lPersonajes.buscar(nombrePersonaje);
 			if(personaje !=null) {
 				personaje = cuenta.getListaPersonajes().buscar(nombrePersonaje);
@@ -86,6 +81,16 @@ public class SystemImpl implements SystemI{
 			throw new NullPointerException("No existe la cuenta "+nombreCuenta);
 		}
 	}
+	
+	/*public boolean ingresaAsocia(String nombreCuenta,String nombrePersonaje) {
+		Cuenta cuenta= lCuentas.buscar(nombreCuenta);
+		if(cuenta != null) {
+			Personaje personaje = lPersonajes.buscar(nombrePersonaje);
+			if(personaje != null) {
+				
+			}
+		}
+	}*/
 
 	public boolean ingresarAsociarPersonajeSkin(String nombrePersonaje, String rol, String nombreSkin,String calidadSkin) {
 		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
@@ -118,7 +123,7 @@ public class SystemImpl implements SystemI{
 	
 	public boolean comprarSkin(String nombreCuenta,String nombrePersonaje,String nombreSkin) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta != null && cuenta.getEstadoCuenta()==true) {
+		if(cuenta != null ) {
 			Personaje personaje = cuenta.getListaPersonajes().buscar(nombrePersonaje);
 			if(personaje!= null) {
 				Skin skin = personaje.getListaSkins().buscar(nombreSkin);
@@ -148,7 +153,7 @@ public class SystemImpl implements SystemI{
 	
 	public boolean comprarPersonaje(String nombreCuenta,String nombrePersonaje) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta != null && cuenta.getEstadoCuenta() == true) {
+		if(cuenta != null ) {
 			Personaje personaje = cuenta.getListaPersonajes().buscar(nombrePersonaje);
 			if(personaje ==null) {
 				int pagar = 975;
@@ -172,7 +177,7 @@ public class SystemImpl implements SystemI{
 	public String obtenerSkinsDisponibles(String nombreCuenta) {
 		String dato = "";
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta != null && cuenta.getEstadoCuenta()==true) {
+		if(cuenta != null ) {
 			ListaSkins ls = cuenta.getListaSkins();
 			for(int i=0;i<lSkins.getCant();i++) {
 				if(!ls.getElementoI(i).equals(lSkins.getElementoI(i))) {
@@ -187,7 +192,7 @@ public class SystemImpl implements SystemI{
 	public String obtenerInventario(String nombreCuenta) {
 		String dato = "";
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta != null && cuenta.getEstadoCuenta()==true) {
+		if(cuenta != null ) {
 			ListaPersonajes listapersonajes = cuenta.getListaPersonajes();
 			for(int i=0;i<listapersonajes.getCant();i++) {
 				Personaje personaje = listapersonajes.getElementoI(i);
@@ -206,7 +211,7 @@ public class SystemImpl implements SystemI{
 	
 	public boolean recargarRp(String nombreCuenta,int dinero) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta != null  && cuenta.getEstadoCuenta()==true) {
+		if(cuenta != null  ) {
 			int saldo = cuenta.getRpCuenta()+dinero;
 			cuenta.setRpCuenta(saldo);
 			return true;
@@ -218,7 +223,7 @@ public class SystemImpl implements SystemI{
 	public String obtenerDatosCuenta(String nombreCuenta) {
 		String dato = "";
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta != null  && cuenta.getEstadoCuenta()==true) {
+		if(cuenta != null  ) {
 			String contraseña = cuenta.getContraseña();
 			int cantCaracteres = contraseña.length();
 			//ojo aca
@@ -231,7 +236,7 @@ public class SystemImpl implements SystemI{
 		
 	public boolean cambiarContraseña(String nombreCuenta,String contraseñaVieja,String contraseñaNueva) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta != null  && cuenta.getEstadoCuenta()==true) {
+		if(cuenta != null  ) {
 			if(cuenta.getContraseña().equals(contraseñaVieja)) {
 				cuenta.setContraseña(contraseñaNueva);
 				return true;

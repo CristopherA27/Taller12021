@@ -1,13 +1,14 @@
 package logica;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class App {
 	
-	public static void leerCuentas(SystemI system) throws IOException{
-		System.out.println("Leyendo personajes");
+	public static void leerCuentas(SystemI system) throws FileNotFoundException{
+		System.out.println("Leyendo Cuentas");
 		Scanner s = new Scanner(new File("Cuentas.txt"));
 		while(s.hasNextLine()) {
 			String line = s.nextLine();
@@ -51,8 +52,8 @@ public class App {
 		}
 	}
 	
-	public static void leerPersonajes(SystemI system)throws IOException{
-		System.out.println("Leyendo cuentas");
+	public static void leerPersonajes(SystemI system)throws FileNotFoundException{
+		System.out.println("Leyendo Personajes");
 		Scanner s = new Scanner(new File("Personajes.txt"));
 		while(s.hasNextLine()) {
 			String line = s.nextLine();
@@ -85,7 +86,7 @@ public class App {
 		}
 	}
 	
-	public static void leerEstadisticas(SystemI system) throws IOException{
+	public static void leerEstadisticas(SystemI system) throws FileNotFoundException{
 		System.out.println("Leyendo Estadisticas");
 		Scanner s = new Scanner(new File("Estadisticas.txt"));
 		while(s.hasNextLine()) {
@@ -430,9 +431,10 @@ public class App {
 	
 	public static void main(String [] args) throws IOException {
 		SystemI system = new SystemImpl();
-		leerCuentas(system);
 		leerPersonajes(system);
 		leerEstadisticas(system);
+		leerCuentas(system);
+		
 		while(true) {
 			boolean usuario = inicioSesion(system);
 			if(usuario) {
