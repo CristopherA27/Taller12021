@@ -312,22 +312,65 @@ public class App {
 	    	String opcion = leer.nextLine();
 	    	switch(opcion) {
 	    		case("A"):
+	    			System.out.println(system.obtenerVentasPorRol());
 	    			break;
 	    		case("B"):
+	    			System.out.println(system.obtenerVentasPorRegion());
 	    			break;
 	    		case("C"):
+	    			System.out.println(system.obtenerVentasPorPersonaje());
 	    			break;
 	    		case("D"):
+	    			System.out.println(system.obtenerPersonajesPorRol());
 	    			break;
 	    		case("E"):
+	    			agregarPersonajeSkin(system);
 	    			break;
 	    		case("F"):
+	    			System.out.print("Ingrese el nombre del personaje al cual desea agregarle Skins");
+	    			String nombrePersonaje = leer.nextLine();
+	    			boolean reconocerPersonaje = system.existePersonaje(nombrePersonaje);
+	    			if(reconocerPersonaje) {
+	    				System.out.print("Cuantas skins desea agregar: ");
+	    				int cantSkins = leer.nextInt();
+	    				leer.nextLine();
+	    				for(int i=0; i<cantSkins;i++) {
+	    					System.out.print("Ingrese el nombre de la skin a agregar: ");
+	    					String nombreSkin = leer.nextLine();
+	    					System.out.print("Ingrese la calidad de la skin a agregar: ");
+	    					String calidadSkin = leer.nextLine();
+	    					try {
+	    						boolean ingresarSkin = system.agregarSkin(nombrePersonaje, nombreSkin, calidadSkin);
+	    						if(ingresarSkin) {
+	    							System.out.println("Skin ingresada con exito");
+	    						}else {
+	    							System.out.println("No se pudo ingresar la skin ");
+	    						}
+	    					}catch(Exception ex) {
+	    						System.out.println("\t"+ex.getMessage());
+	    					}
+	    				}
+	    			}
 	    			break;
 	    		case("G"):
+	    			System.out.print("Ingrese el nombre de la Cuenta que desea bloquear:");
+	    			String nombreCuenta = leer.nextLine();
+	    			try {
+	    				boolean bloquear = system.bloquearJugador(nombreCuenta);
+	    				if(bloquear) {
+	    					System.out.println("Cuenta bloqueada con exito");
+	    				}else {
+	    					System.out.println("No se pudo bloquear la cuenta por que no existe");
+	    				}
+	    			}catch(Exception e) {
+	    				System.out.println("\t"+e.getMessage());
+	    			}
 	    			break;
 	    		case("H"):
+	    			System.out.println(system.obtenerCuentasMayorAMenor());
 	    			break;
 	    		case("I"):
+	    			cierre = false;
 	    			break;
 	    		default:System.out.println("Elija A ,B ,C , D , E ,G,H o I porfavor ");break;
 	    	}
@@ -338,6 +381,53 @@ public class App {
 		System.out.println("\tSALIENDO DEL MENU CLIENTE");
 	}
 	
+	public static void agregarPersonajeSkin(SystemI system) {
+		System.out.print("Ingrese el nombre del personaje que desea agregar: ");
+		String nombrePersonaje = leer.nextLine();
+		System.out.print("Ingrese el rol del personaje que desea agregar: ");
+		String rol = leer.nextLine();
+		System.out.print("Cuantas skins desea agregar al personaje?: ");
+		int cantSkins = leer.nextInt();
+		leer.nextLine();
+		while(cantSkins <= 0) {
+			System.out.print("Cuantas skins desea agregar al personaje?: ");
+			cantSkins = leer.nextInt();
+			if(cantSkins>0) {
+				break;
+			}
+		}
+		if(cantSkins==1 && cantSkins>0) {
+			System.out.print("Ingrese el nombre de la skin a agregar: ");
+			String nombreSkin = leer.nextLine();
+			System.out.print("Ingrese la calidad de la skin a agregar: ");
+			String calidadSkin = leer.nextLine();
+			boolean agregarPerso = system.agregarPersonaje(nombrePersonaje, rol, nombreSkin, calidadSkin);
+			if(agregarPerso) {
+				System.out.println("Personaje agregado con exito.");
+			}else {
+				System.out.println("No se pudo agregar el personaje con sus skins");
+			}
+		}else if (cantSkins>1){
+			for(int i=0;i<cantSkins;i++) {
+				System.out.print("Ingrese el nombre de la skin a agregar: ");
+				String nombreSkin = leer.nextLine();
+				System.out.print("Ingrese la calidad de la skin a agregar: ");
+				String calidadSkin = leer.nextLine();
+				try {
+					boolean agregarSkin = system.agregarSkin(nombrePersonaje, nombreSkin, calidadSkin);
+					if(agregarSkin) {
+						System.out.println("Skin agregada con exito al personaje");
+					}else {
+						System.out.println("No se pudo agregar la skin al personaje");
+					}
+				}catch(Exception ex) {
+					System.out.println("\t"+ ex.getMessage());
+				}
+				
+			}
+		}
+			
+	}
 	
 	
 	

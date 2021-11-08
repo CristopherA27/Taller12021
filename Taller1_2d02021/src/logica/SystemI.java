@@ -34,6 +34,8 @@ public interface SystemI {
 	public String obtenerVentasPorPersonaje();
 	public String obtenerPersonajesPorRol();
 	public boolean agregarPersonaje(String nombrePersonaje,String rol,String nombreSkin,String calidadSkin);
+	public boolean agregarSkin(String nombrePersonaje,String nombreSkin,String calidadSkin);
+	public boolean bloquearJugador(String nombreCuenta);
 	public String obtenerCuentasMayorAMenor();
 
 }

@@ -235,7 +235,7 @@ public class SystemImpl implements SystemI{
 				cuenta.setContraseña(contraseñaNueva);
 				return true;
 			}else {
-				return false;
+				throw new NullPointerException("La "+contraseñaVieja+" no existe");
 			}
 		}else {
 			throw new NullPointerException("La cuenta "+nombreCuenta+" no existe");
@@ -370,7 +370,7 @@ public class SystemImpl implements SystemI{
 			personaje = new Personaje(nombrePersonaje, rol);
 			lPersonajes.ingresar(personaje);
 			Skin skin = lSkins.buscar(nombreSkin);
-			if(skin == null) {
+			if(skin == null) {			
 				skin = new Skin(nombreSkin, calidadSkin);
 				personaje.getListaSkins().ingresar(skin);
 				lSkins.ingresar(skin);
@@ -387,7 +387,7 @@ public class SystemImpl implements SystemI{
 			if(skin ==null) {
 				skin = new Skin(nombreSkin, calidadSkin);
 				personaje.getListaSkins().ingresar(skin);
-				//lSkins.ingresar(skin);
+				lSkins.ingresar(skin);
 				return true;
 			}else {
 				return false;
