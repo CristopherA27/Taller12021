@@ -19,10 +19,18 @@ public class ListaSkins {
 	}
 	
 	public boolean ingresar(Skin skin) {
-		if(cant<max) {
-			listaSkins[cant] = skin;
-			cant++;
-			return true;
+		boolean existe = false;
+		for(int i=0;i<cant;i++) {
+			if(listaSkins[i].getNombreSkin().equals((skin.getNombreSkin()))) {
+				existe = true;
+			}
+		}
+		if(existe == false) {
+			if(cant<max) {
+				listaSkins[cant] = skin;
+				cant++;
+				return true;
+			}
 		}
 		return false;
 	}

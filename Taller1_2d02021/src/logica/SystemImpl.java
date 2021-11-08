@@ -46,19 +46,19 @@ public class SystemImpl implements SystemI{
 	}
 	
 	public boolean ingresarPersonaje(String nombrePersonaje,String rol) {
-		System.out.println(nombrePersonaje);
 		Personaje personaje = new Personaje(nombrePersonaje,rol);
 		return lPersonajes.ingresar(personaje);
+	}
+	
+	public boolean ingresarSkin(String nombreSkin,String calidadSkin) {
+		Skin skin = new Skin(nombreSkin, calidadSkin);
+		return lSkins.ingresar(skin);
 	}
 
 	@Override
 	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String nombrePersonaje) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta != null ) {
-			/*for(int i=0;i<lPersonajes.getCant();i++) {
-				Personaje per = lPersonajes.getElementoI(i);
-				System.out.println(per.getNombrePersonaje());
-			}*/
 			Personaje personaje = lPersonajes.buscar(nombrePersonaje);
 			if(personaje !=null) {
 				personaje = cuenta.getListaPersonajes().buscar(nombrePersonaje);
@@ -81,22 +81,13 @@ public class SystemImpl implements SystemI{
 			throw new NullPointerException("No existe la cuenta "+nombreCuenta);
 		}
 	}
-	
-	/*public boolean ingresaAsocia(String nombreCuenta,String nombrePersonaje) {
-		Cuenta cuenta= lCuentas.buscar(nombreCuenta);
-		if(cuenta != null) {
-			Personaje personaje = lPersonajes.buscar(nombrePersonaje);
-			if(personaje != null) {
-				
-			}
-		}
-	}*/
 
 	public boolean ingresarAsociarPersonajeSkin(String nombrePersonaje, String rol, String nombreSkin,String calidadSkin) {
 		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
 		if(personaje != null) {
 			Skin skin = personaje.getListaSkins().buscar(nombreSkin);
-			if(skin != null) {
+			if(skin == null) {
+				skin = new Skin(nombreSkin, calidadSkin);
 				boolean ingresado = personaje.getListaSkins().ingresar(skin);
 				boolean ingresarSkin = lSkins.ingresar(skin);
 				if(ingresado && ingresarSkin) {
