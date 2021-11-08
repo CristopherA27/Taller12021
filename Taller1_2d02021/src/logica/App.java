@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class App {
 	
-	
 	public static void leerCuentas(SystemI system) throws IOException{
 		System.out.println("Leyendo personajes");
 		Scanner s = new Scanner(new File("Cuentas.txt"));
