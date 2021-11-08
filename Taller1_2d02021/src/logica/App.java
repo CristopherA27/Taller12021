@@ -432,10 +432,33 @@ public class App {
 	
 	
 	
-	public static void main(String [] args) {
+	public static void main(String [] args) throws IOException {
 		SystemI system = new SystemImpl();
+		leerCuentas(system);
+		leerPersonajes(system);
+		leerEstadisticas(system);
+		while(true) {
+			boolean usuario = inicioSesion(system);
+			if(usuario) {
+				System.out.println("Desea cerrar el sistema? (Si) o (No)");
+				String resp = leer.nextLine();
+				while(!resp.equalsIgnoreCase("Si") && !resp.equalsIgnoreCase("No")) {
+					System.out.println("Desea cerrar el sistema? (Si) o (No)");
+					resp = leer.nextLine();
+				}
+				if(resp.equalsIgnoreCase("Si")) {
+					break;
+				}
+			}
+		}
+		sobreescribir(system);
+		leer.close();
 	}
 	
+	private static void sobreescribir(SystemI system) {
+		
+	}
+
 	public static Scanner leer = new Scanner(System.in);
 	
 	
