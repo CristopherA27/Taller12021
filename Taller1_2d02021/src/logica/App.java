@@ -93,7 +93,7 @@ public class App {
 			String line = s.nextLine();
 			String [] partes = line.split(",");
 			String nombrePersonaje = partes[0];
-			double recaudacion = (Integer.parseInt(partes[1])*6.15);
+			double recaudacion = (Integer.parseInt(partes[1]));
 			try {
 				boolean ingresado = system.ingresarEstadistica(nombrePersonaje, recaudacion);
 				if(!ingresado) {

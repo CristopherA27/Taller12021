@@ -128,7 +128,7 @@ public class SystemImpl implements SystemI{
 					pagar = tipoSkin;
 					if(cuenta.getRpCuenta()>pagar) {
 						cuenta.setRpCuenta(cuenta.getRpCuenta()-pagar);
-						cuenta.setRecaudacionRegion(cuenta.getRecaudacionRegion()+(pagar*6.15));
+						cuenta.setRecaudacionRegion(cuenta.getRecaudacionRegion()+(pagar));
 						personaje.getListaSkins().ingresar(skin);
 						cuenta.getListaPersonajes().buscar(nombrePersonaje).getListaSkins().ingresar(skin);
 						return true;
@@ -154,8 +154,9 @@ public class SystemImpl implements SystemI{
 				int pagar = 975;
 				if(cuenta.getRpCuenta()>pagar) {
 					cuenta.getListaPersonajes().ingresar(personaje);
-					personaje.setRecaudacion(personaje.getRecaudacion()+(pagar*6.15));
+					personaje.setRecaudacion(personaje.getRecaudacion()+(pagar));
 					cuenta.setRpCuenta(cuenta.getRpCuenta()-pagar);
+					cuenta.setNivelCuenta(cuenta.getNivelCuenta()+1);
 					return true;
 				}else {
 					return false;
@@ -252,7 +253,7 @@ public class SystemImpl implements SystemI{
 		double recaudacionJG = 0;
 		for(int i=0;i<lPersonajes.getCant();i++) {
 			Personaje personaje = lPersonajes.getElementoI(i);
-			double recaudacion = personaje.getRecaudacion();
+			double recaudacion = personaje.getRecaudacion()*6.15;
 			String tipo = personaje.getRol();
 			switch(tipo) {
 			case("SUP"):
@@ -294,7 +295,7 @@ public class SystemImpl implements SystemI{
 		for(int i=0;i<lCuentas.getCant();i++) {
 			Cuenta cuenta = lCuentas.getElementoI(i);
 			String regionCuenta = cuenta.getRegion();
-			double recaudacion = cuenta.getRecaudacionRegion();
+			double recaudacion = cuenta.getRecaudacionRegion()*6.15;
 			switch(regionCuenta) {
 			case("LAS"):
 				recaudacionLAS+= recaudacion;
@@ -325,7 +326,7 @@ public class SystemImpl implements SystemI{
 		String dato = "";
 		for(int i=0;i<lPersonajes.getCant();i++) {
 			Personaje personaje = lPersonajes.getElementoI(i);
-			double recaudacion = personaje.getRecaudacion();
+			double recaudacion = personaje.getRecaudacion()*6.15;
 			dato+=personaje.getNombrePersonaje()+" recaudo "+recaudacion+"\n";
 		}
 		return dato;
