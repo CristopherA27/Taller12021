@@ -235,12 +235,55 @@ public class App {
 	    			System.out.println(system.obtenerInventario(nombreCuenta));
 	    			break;
 	    		case("E"):
-	    			System.out.println("Cuanto dinero en CLP desea agregar a la cuenta: ");
+	    			System.out.println("Cuantos RP desea agregar a la cuenta: ");
 	    		    int dinero = leer.nextInt();
+	    		    try {
+	    		    	boolean agregarSaldo = system.recargarRp(nombreCuenta, dinero);
+	    		    	if(agregarSaldo) {
+	    		    		System.out.println("RP agregados a su cuenta");
+	    		    	}else {
+	    		    		System.out.println("No se pudo agregar los RP a la cuenta");
+	    		    	}
+	    		    }catch(Exception ex) {
+	    		    	System.out.println("\t"+ex.getMessage());
+	    		    }
 	    			break;
 	    		case("F"):
+	    			System.out.println(system.obtenerDatosCuenta(nombreCuenta));
+	    			System.out.print("Desea cambiar su contraseña? (SI) o (NO) : ");
+	    			String resp = leer.nextLine();
+	    			if(resp.equalsIgnoreCase("SI")) {
+	    				System.out.println("Ingrese su contraseña actual: ");
+	    				String contraseñaAntigua = leer.nextLine();
+	    				boolean contraCorrecta = system.contraseñaCorrecta(nombreCuenta, contraseñaAntigua);
+	    				if(contraCorrecta) {
+	    					System.out.println("Ingrese la nueva contraseña que desee: ");
+	    					String contraseñaNueva = leer.nextLine();
+	    					System.out.println("Confirme la nueva contraseña ingresada: ");
+	    					String contraseñaNueva1 = leer.nextLine();
+	    					if(contraseñaNueva.equals(contraseñaNueva1)) {
+	    						try {
+	    							boolean nuevaContra = system.cambiarContraseña(nombreCuenta, contraseñaAntigua, contraseñaNueva);
+	    							if(nuevaContra) {
+	    								System.out.println("Contraseña cambiada con exito");
+	    							}else {
+	    								System.out.println("Error al ingresar la contraseña");
+	    							}
+	    						}catch(Exception ex) {
+	    							System.out.println("\t"+ex.getMessage());
+	    						}
+	    					}else {
+	    						System.out.println("Las contraseñas nuevas no coinciden");
+	    					}
+	    				}else {
+	    					System.out.println("La contraseña ingresada no es la correcta");
+	    				}
+	    			}else {
+	    				System.out.println("Datos desplegados con exito");
+	    			}
 	    			break;
 	    		case("G"):
+	    			cierre = false;
 	    			break;
 	    		default:System.out.println("Elija A ,B ,C , D , E o G porfavor ");break;
 	    	}

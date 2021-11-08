@@ -18,13 +18,14 @@ public interface SystemI {
 	//
 	public boolean contraseñaCorrecta(String nombreCuenta,String contraseña);
 	public String obtenerSkinsPersonaje(String nombreCuenta,String nombrePersonaje);
-	//Menu cliente
 	
+	//Menu cliente
 	public boolean comprarSkin(String nombreCuenta,String nombrePersonaje,String nombreSkin);
 	public boolean comprarPersonaje(String nombreCuenta,String nombrePersonaje) ;
 	public String obtenerSkinsDisponibles(String nombreCuenta);
 	public String obtenerInventario(String nombreCuenta);
 	public boolean recargarRp(String nombreCuenta,int dinero);
+	public String obtenerDatosCuenta(String nombreCuenta);
 	public boolean cambiarContraseña(String nombreCuenta,String contraseñaVieja,String contraseñaNueva);
 	
 	//menu admin

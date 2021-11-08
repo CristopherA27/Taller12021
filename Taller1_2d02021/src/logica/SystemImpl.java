@@ -232,14 +232,10 @@ public class SystemImpl implements SystemI{
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta != null  && cuenta.getEstadoCuenta()==true) {
 			if(cuenta.getContraseña().equals(contraseñaVieja)) {
-				if(cuenta.getContraseña().equals(contraseñaVieja)) {
-					cuenta.setContraseña(contraseñaNueva);
-					return true;
-				}else {
-					return false;
-				}
+				cuenta.setContraseña(contraseñaNueva);
+				return true;
 			}else {
-				throw new NullPointerException("La "+contraseñaVieja+" no existe");
+				return false;
 			}
 		}else {
 			throw new NullPointerException("La cuenta "+nombreCuenta+" no existe");
