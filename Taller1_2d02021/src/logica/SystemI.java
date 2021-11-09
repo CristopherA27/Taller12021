@@ -42,6 +42,8 @@ public interface SystemI {
 	public String obtenerCuentas();
 	public String obtenerPersonajes();
 	public String obtenerEstadisticas();
+	
+	public boolean asociarEstadistica(String nombrePersonje, double recaudacion);
 
 }
 

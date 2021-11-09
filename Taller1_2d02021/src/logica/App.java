@@ -1,5 +1,5 @@
 package logica;
-import ucn.*;
+import ucn.*;	
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -109,9 +109,9 @@ public class App {
 			String line = s.nextLine();
 			String [] partes = line.split(",");
 			String nombrePersonaje = partes[0];
-			double recaudacion = (Integer.parseInt(partes[1]));
+			double recaudacion = Integer.parseInt(partes[1]);
 			try {
-				boolean ingresado = system.ingresarEstadistica(nombrePersonaje, recaudacion);
+				boolean ingresado = system.asociarEstadistica(nombrePersonaje, (recaudacion*6.15));
 				if(!ingresado) {
 					System.out.println("No se pudo ingresar la estadística por que no hay más espacio");
 				}
@@ -496,11 +496,6 @@ public class App {
 		arch2.close();
 		
 	}
-	
-	
-	
-	
-	
 	
 	/**
 	 * main function

@@ -141,14 +141,18 @@ public class SystemImpl implements SystemI{
 	 * else return false 
 	 */
 	
-	public boolean ingresarEstadistica(String nombrePersonaje,double recaudacion) {
-		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
-		if(personaje!=null) {
-			personaje.setRecaudacion(personaje.getRecaudacion()+recaudacion);
-			return true;
+	public boolean asociarEstadistica(String nombrePersonje, double recaudacion){
+		for(int i=0;i<lPersonajes.getCant();i++) {
+			System.out.println(lPersonajes.getElementoI(i).getNombrePersonaje());
 		}
-		return false;
-	}
+        Personaje personaje = lPersonajes.buscar(nombrePersonje);
+        if(personaje != null){
+            personaje.setRecaudacion(recaudacion);
+            return true;
+        }else{
+            throw new NullPointerException("El personaje no existe");
+        }
+    }
 	
 	/**
 	 *with this function you can buy a skin
@@ -364,16 +368,6 @@ public class SystemImpl implements SystemI{
 		}
 		dato+="SUP:"+recaudacionSUP+" ADC:"+recaudacionADC+" TOP:"+recaudacionTOP+" MID:"+recaudacionMID+" JG:"+recaudacionJG;
 		return dato;
-	}
-	
-	/**
-	 * this function converts the Chilean peso to Rp
-	 * return double montoCLP
-	 */
-	
-	public double convertirCLP(int monto) {
-		double montoCLP = monto*6.15;
-		return montoCLP;
 	}
 
 	/*
