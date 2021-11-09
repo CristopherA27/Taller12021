@@ -9,7 +9,7 @@ public interface SystemI {
 	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String nombrePersonaje);
 	public boolean ingresarAsociarPersonajeSkin(String nombrePersonaje,String rol,String nombreSkin,String calidadSkin);
 	public boolean asignarRegion(String nombreCuenta,String region);
-	public boolean ingresarEstadistica(String nombrePersonaje,double recaudacion);
+	public boolean asociarEstadistica(String nombrePersonaje,double recaudacion);
 	
 	//Pa ver si existe
 	public boolean existeCuenta(String nombreCuenta);
@@ -43,7 +43,6 @@ public interface SystemI {
 	public String obtenerPersonajes();
 	public String obtenerEstadisticas();
 	
-	public boolean asociarEstadistica(String nombrePersonje, double recaudacion);
 
 }
 
