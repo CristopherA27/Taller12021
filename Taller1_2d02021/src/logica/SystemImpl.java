@@ -74,17 +74,6 @@ public class SystemImpl implements SystemI{
 		Personaje personaje = new Personaje(nombrePersonaje,rol);
 		return lPersonajes.ingresar(personaje);
 	}
-	/**
-	 * this function enters a skin
-	 * @param nombreSkin
-	 * @param calidadSkin
-	 * @return lSkins
-	 */
-	
-	public boolean ingresarSkin(String nombreSkin,String calidadSkin) {
-		Skin skin = new Skin(nombreSkin, calidadSkin);
-		return lSkins.ingresar(skin);
-	}
 
 	/**
 	 * this function associates a character with an account
@@ -683,6 +672,10 @@ public class SystemImpl implements SystemI{
 			return false;
 		}
 	}
+	/**
+	 * This function your respective account details
+	 * @return account and their information
+	 */
 	
 	public String obtenerCuentas() {
 		String dato = "";
@@ -703,6 +696,11 @@ public class SystemImpl implements SystemI{
 		return dato;
 	}
 	
+	/**
+	 * this function obtains a character and their respective kins and data
+	 * @return character and their information
+	 */
+	
 	public String obtenerPersonajes() {
 		String dato = "";
 		for(int i=0;i<lPersonajes.getCant();i++) {
@@ -716,6 +714,10 @@ public class SystemImpl implements SystemI{
 		}
 		return dato;
 	}
+	/**
+	 * get the character and its respective collection
+	 * @return character and its collection
+	 */
 	
 	public String obtenerEstadisticas() {
 		String dato = "";
