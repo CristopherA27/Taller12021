@@ -18,7 +18,7 @@ public class SystemImpl implements SystemI{
 	
 	/**
 	 * this function enter the user account you want
-	 * param nombreCuenta
+	 * @param nombreCuenta
 	 * @param contraseña
 	 * @param nick
 	 * @param nivelCuenta
@@ -74,7 +74,6 @@ public class SystemImpl implements SystemI{
 		Personaje personaje = new Personaje(nombrePersonaje,rol);
 		return lPersonajes.ingresar(personaje);
 	}
-	
 	/**
 	 * this function enters a skin
 	 * @param nombreSkin
@@ -97,30 +96,23 @@ public class SystemImpl implements SystemI{
 	
 	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String nombrePersonaje) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
-		if(cuenta != null ) {
+		if(cuenta != null) {
 			Personaje personaje = lPersonajes.buscar(nombrePersonaje);
-			if(personaje !=null) {
-				personaje = cuenta.getListaPersonajes().buscar(nombrePersonaje);
-				if(personaje == null) {
-					Personaje p = new Personaje(nombrePersonaje, personaje.getRol());
-					boolean ingresado = cuenta.getListaPersonajes().ingresar(p);
-					if(ingresado) {
-						return true;
-					}else {
-						return false;
-					}
+			if(personaje != null) {
+				boolean ingresar = cuenta.getListaPersonajes().ingresar(personaje);
+				if(ingresar) {
+					return true;
 				}else {
-					throw new NullPointerException("Ya existe el"+nombrePersonaje+" en la cuenta");
+					return false;
 				}
-			}
-			else {
-				throw new NullPointerException("El personaje "+nombrePersonaje+" no existe en el juego");
+			}else {
+				throw new NullPointerException("El personaje "+nombrePersonaje+" no existe");
 			}
 		}else {
-			throw new NullPointerException("No existe la cuenta "+nombreCuenta);
+			throw new NullPointerException("La cuenta "+nombreCuenta+" no exisite");
 		}
-	}
-	
+		
+	}	
 	/**
 	 *this function associates a character with its respective skin
 	 * @param nombrePersonaje
@@ -321,7 +313,7 @@ public class SystemImpl implements SystemI{
 		}else {
 			throw new NullPointerException("La cuenta "+nombreCuenta+" no existe");
 		}
-		return null;
+		return dato;
 	}
 	
 	/**
@@ -690,6 +682,48 @@ public class SystemImpl implements SystemI{
 		}else {
 			return false;
 		}
+	}
+	
+	public String obtenerCuentas() {
+		String dato = "";
+		for(int i=0;i<lCuentas.getCant();i++) {
+			Cuenta c = lCuentas.getElementoI(i);
+			dato+=c.getNombreCuenta()+","+c.getContraseña()+","+c.getNick()+","+c.getNivelCuenta()+","+c.getRpCuenta()+"\n";
+			ListaPersonajes lp = c.getListaPersonajes();
+			for(int j=0;j<lp.getCant();j++) {
+				Personaje p = lp.getElementoI(j);
+				dato += "\t"+p.getNombrePersonaje()+","+p.getRol();
+				ListaSkins ls = p.getListaSkins();
+				for(int k=0;k<ls.getCant();k++) {
+					Skin s = ls.getElementoI(k);
+					dato +="\t"+s.getNombreSkin()+","+s.getCalidadSkin()+"\n";
+				}
+			}
+		}
+		return dato;
+	}
+	
+	public String obtenerPersonajes() {
+		String dato = "";
+		for(int i=0;i<lPersonajes.getCant();i++) {
+			Personaje p = lPersonajes.getElementoI(i);
+			dato+=p.getNombrePersonaje()+","+p.getRol();
+			ListaSkins ls = p.getListaSkins();
+			for(int j=0;j<ls.getCant();j++) {
+				Skin s = ls.getElementoI(i);
+				dato+="\t"+s.getNombreSkin()+","+s.getCalidadSkin()+"\n";
+			}
+		}
+		return dato;
+	}
+	
+	public String obtenerEstadisticas() {
+		String dato = "";
+		for(int i=0;i<lPersonajes.getCant();i++) {
+			Personaje p = lPersonajes.getElementoI(i);
+			dato+=p.getNombrePersonaje()+","+p.getRecaudacion()+"\n";
+		}
+		return dato;
 	}
 	
 	

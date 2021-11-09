@@ -37,6 +37,11 @@ public interface SystemI {
 	public boolean agregarSkin(String nombrePersonaje,String nombreSkin,String calidadSkin);
 	public boolean bloquearJugador(String nombreCuenta);
 	public String obtenerCuentasMayorAMenor();
+	
+	//Sobreescribir
+	public String obtenerCuentas();
+	public String obtenerPersonajes();
+	public String obtenerEstadisticas();
 
 }
 

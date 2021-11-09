@@ -1,5 +1,5 @@
 package logica;
-
+import ucn.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,7 +14,6 @@ public class App {
 	 */
 	
 	public static void leerCuentas(SystemI system) throws FileNotFoundException{
-		System.out.println("Leyendo Cuentas");
 		Scanner s = new Scanner(new File("Cuentas.txt"));
 		while(s.hasNextLine()) {
 			String line = s.nextLine();
@@ -65,7 +64,6 @@ public class App {
 	 */
 	
 	public static void leerPersonajes(SystemI system)throws FileNotFoundException{
-		System.out.println("Leyendo Personajes");
 		Scanner s = new Scanner(new File("Personajes.txt"));
 		while(s.hasNextLine()) {
 			String line = s.nextLine();
@@ -131,6 +129,8 @@ public class App {
 	 */
 	
 	public static boolean inicioSesion(SystemI system) {
+		System.out.println("BIENVENIDO A LA TIENDA ONLINNE DE RIOT GAMES");
+		System.out.println();
 		System.out.print("Ingrese el NombreCuenta: ");
 		String nombreCuenta = leer.nextLine();
 		if(nombreCuenta.equalsIgnoreCase("ADMIN")) {
@@ -503,9 +503,12 @@ public class App {
 	/**
 	 * this this function overwrites the changed data
 	 * @param system
+	 * @throws IOException 
 	 */
 	
-	public static void sobreescribir(SystemI system) {
+	public static void sobreescribir(SystemI system) throws IOException {
+		ArchivoSalida arch = new ArchivoSalida("Cuentas.txt");
+		Registro registroSalida = new Registro(1);
 		
 	}
 
