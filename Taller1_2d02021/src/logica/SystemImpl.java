@@ -15,7 +15,18 @@ public class SystemImpl implements SystemI{
 		lPersonajes = new ListaPersonajes(100);
 		lSkins = new ListaSkins(100);
 	}
-
+	
+	/**
+	 * this function enter the user account you want
+	 * param nombreCuenta
+	 * @param contraseña
+	 * @param nick
+	 * @param nivelCuenta
+	 * @param rpCuenta
+	 * return true if the account exist
+	 * else return false
+	 */
+	
 	public boolean ingresarCuenta(String nombreCuenta, String contraseña, String nick, int nivelCuenta, int rpCuenta) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta == null ) {
@@ -35,6 +46,13 @@ public class SystemImpl implements SystemI{
 		}
 	}
 	
+	/**
+	 *this function assigns a region to the account 
+	 * @param nombreCuenta
+	 * @param region
+	 * return true if the account exist
+	 */
+	
 	public boolean asignarRegion(String nombreCuenta,String region) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta != null) {
@@ -45,17 +63,38 @@ public class SystemImpl implements SystemI{
 		}
 	}
 	
+	/**
+	 * this function enters a character
+	 * @param nombrePersonaje
+	 * @param rol
+	 * return lPersonajes
+	 */
+	
 	public boolean ingresarPersonaje(String nombrePersonaje,String rol) {
 		Personaje personaje = new Personaje(nombrePersonaje,rol);
 		return lPersonajes.ingresar(personaje);
 	}
+	
+	/**
+	 * this function enters a skin
+	 * @param nombreSkin
+	 * @param calidadSkin
+	 * @return lSkins
+	 */
 	
 	public boolean ingresarSkin(String nombreSkin,String calidadSkin) {
 		Skin skin = new Skin(nombreSkin, calidadSkin);
 		return lSkins.ingresar(skin);
 	}
 
-	@Override
+	/**
+	 * this function associates a character with an account
+	 * @param nombreCuenta
+	 * @param nombrePersonaje
+	 * return true if the account exist
+	 * else return false
+	 */
+	
 	public boolean ingresarAsociarCuentaPersonaje(String nombreCuenta,String nombrePersonaje) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta != null ) {
@@ -81,7 +120,17 @@ public class SystemImpl implements SystemI{
 			throw new NullPointerException("No existe la cuenta "+nombreCuenta);
 		}
 	}
-
+	
+	/**
+	 *this function associates a character with its respective skin
+	 * @param nombrePersonaje
+	 * @param rol
+	 * @param nombreSkin
+	 * @param calidadSkin
+	 * return true if the character and the skin exist
+	 * else return false
+	 */
+	
 	public boolean ingresarAsociarPersonajeSkin(String nombrePersonaje, String rol, String nombreSkin,String calidadSkin) {
 		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
 		if(personaje != null) {
@@ -103,6 +152,14 @@ public class SystemImpl implements SystemI{
 		}
 	}
 	
+	/**
+	 *enter the character and its respective collection
+	 * @param nombrePersonaje
+	 * @param recaudacion
+	 * return true if the character exist
+	 * else return false 
+	 */
+	
 	public boolean ingresarEstadistica(String nombrePersonaje,double recaudacion) {
 		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
 		if(personaje!=null) {
@@ -111,6 +168,15 @@ public class SystemImpl implements SystemI{
 		}
 		return false;
 	}
+	
+	/**
+	 *with this function you can buy a skin
+	 * @param nombreCuenta
+	 * @param nombrePersonaje
+	 * @param nombreSkin
+	 * return true if the rp of the account is greater than zero
+	 * else return false
+	 */
 	
 	public boolean comprarSkin(String nombreCuenta,String nombrePersonaje,String nombreSkin) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
@@ -142,6 +208,14 @@ public class SystemImpl implements SystemI{
 		}
 	}
 	
+	/**
+	 *with this function you can buy a character
+	 * @param nombreCuenta
+	 * @param nombrePersonaje
+	 * return true if the rp of the account is greater than zero
+	 * else return false
+	 */
+	
 	public boolean comprarPersonaje(String nombreCuenta,String nombrePersonaje) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta != null ) {
@@ -165,6 +239,12 @@ public class SystemImpl implements SystemI{
 		}
 	}
 	
+	/**
+	 * this function shows the available skins
+	 * @param nombreCuenta
+	 * return String dato
+	 */
+	
 	public String obtenerSkinsDisponibles(String nombreCuenta) {
 		String dato = "";
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
@@ -179,7 +259,13 @@ public class SystemImpl implements SystemI{
 		return dato;
 	}
 
-	@Override
+	
+	/**
+	 * shows the account characters with their respective skins
+	 * @param nombreCuenta
+	 * return String dato
+	 */
+	
 	public String obtenerInventario(String nombreCuenta) {
 		String dato = "";
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
@@ -200,6 +286,13 @@ public class SystemImpl implements SystemI{
 		return dato;
 	}
 	
+	/**
+	 * allows to recharge rp to the selected account
+	 * @param nombreCuenta
+	 * @param dinero
+	 * return true if the account exist and the account status is true
+	 */
+	
 	public boolean recargarRp(String nombreCuenta,int dinero) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta != null  ) {
@@ -210,6 +303,12 @@ public class SystemImpl implements SystemI{
 			throw new NullPointerException("La cuenta de nombre "+nombreCuenta+" no existe");
 		}
 	}
+	
+	/**
+	 * get the account data
+	 * @param nombreCuenta
+	 * return null if the account don't exist or the account status is false
+	 */
 	
 	public String obtenerDatosCuenta(String nombreCuenta) {
 		String dato = "";
@@ -224,7 +323,15 @@ public class SystemImpl implements SystemI{
 		}
 		return null;
 	}
-		
+	
+	/**
+	 * allows you to change the password of the selected account
+	 * @param nombreCuenta
+	 * @param contraseñaVieja
+	 * @param contraseñaNueva
+	 * return true if the old password is wrong
+	 */
+	
 	public boolean cambiarContraseña(String nombreCuenta,String contraseñaVieja,String contraseñaNueva) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta != null  ) {
@@ -239,7 +346,11 @@ public class SystemImpl implements SystemI{
 		}
 	}
 
-	@Override
+	/**
+	 * get the earnings per role
+	 * return String dato
+	 */
+	
 	public String obtenerVentasPorRol() {
 		String dato = "";
 		double recaudacionSUP =0;
@@ -274,12 +385,21 @@ public class SystemImpl implements SystemI{
 		return dato;
 	}
 	
+	/**
+	 * this function converts the Chilean peso to Rp
+	 * return double montoCLP
+	 */
+	
 	public double convertirCLP(int monto) {
 		double montoCLP = monto*6.15;
 		return montoCLP;
 	}
 
-	@Override
+	/*
+	 * get profit by region 
+	 * return String dato
+	 */
+	
 	public String obtenerVentasPorRegion() {
 		String dato = "";
 		double recaudacionLAS =0;
@@ -318,6 +438,11 @@ public class SystemImpl implements SystemI{
 		return dato;
 	}
 	
+	/**
+	 * The total collected by each character will be obtained. 
+	 * return String dato
+	 */
+	
 	public String obtenerVentasPorPersonaje() {
 		String dato = "";
 		for(int i=0;i<lPersonajes.getCant();i++) {
@@ -327,6 +452,11 @@ public class SystemImpl implements SystemI{
 		}
 		return dato;
 	}
+	
+	/**
+	 * The amount of existing characters will be obtained for each role. 
+	 * return String dato
+	 */
 	
 	public String obtenerPersonajesPorRol() {
 		String dato = "";
@@ -361,6 +491,17 @@ public class SystemImpl implements SystemI{
 		return dato;
 	}
 	
+	/**
+	 * It will search if the character exists, if not, the character will be added to the list of characters, it will
+	 * search if the skin exists, if not, the character with their respective skins will be added to the system.
+	 * @param nombrePersonaje
+	 * @param rol
+	 * @param nombreSkin
+	 * @param calidadSkin
+	 * return true if skin is null
+	 * else return false
+	 */
+	
 	public boolean agregarPersonaje(String nombrePersonaje,String rol,String nombreSkin,String calidadSkin) {
 		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
 		if(personaje ==null) {
@@ -376,6 +517,17 @@ public class SystemImpl implements SystemI{
 		}
 		return false;
 	}
+	
+	/**
+	 * It will search if the skin exists in the character's Skins list, if not, it will search
+	 * if the character exists, if so, the skin will be added to the character's skins list
+	 * @param nombrePersonaje
+	 * @param nombreSkin
+	 * @param calidadSkin
+	 * return true if the skin is null
+	 * else return false
+	 */
+	
 	
 	public boolean agregarSkin(String nombrePersonaje,String nombreSkin,String calidadSkin) {
 		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
@@ -394,6 +546,12 @@ public class SystemImpl implements SystemI{
 		}
 	}
 	
+	/**
+	 * It will search if the account exists, so it will remove it from the system account list.
+	 * @param nombreCuenta
+	 * return false if the account does not exist
+	 */
+	
 	public boolean bloquearJugador(String nombreCuenta) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta != null) {
@@ -403,6 +561,11 @@ public class SystemImpl implements SystemI{
 		}
 		return false;
 	}
+	
+	/**
+	 * All accounts will be obtained from highest to lowest level.
+	 * return String dato 
+	 */
 	
 	public String obtenerCuentasMayorAMenor() {
 		String dato = "";
@@ -431,6 +594,13 @@ public class SystemImpl implements SystemI{
 		return dato;
 	}
 	
+	/**
+	 * It is verified if the account entered exists
+	 * @param nombreCuenta
+	 * return true if the account does not exist
+	 * else return false
+	 */
+	
 	public boolean existeCuenta(String nombreCuenta) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
 		if(cuenta != null) {
@@ -439,6 +609,14 @@ public class SystemImpl implements SystemI{
 			return false;
 		}
 	}
+	
+	/**
+	 * it is verified if the password corresponds to the account
+	 * @param nombreCuenta
+	 * @param contraseña
+	 * return true if the password is the same as the one entered
+	 * else return false
+	 */
 	
 	public boolean contraseñaCorrecta(String nombreCuenta,String contraseña) {
 		Cuenta cuenta = lCuentas.buscar(nombreCuenta);
@@ -453,6 +631,12 @@ public class SystemImpl implements SystemI{
 		}
 	}
 	
+	/**
+	 * this function gets the character skins
+	 * @param nombreCuenta
+	 * @param nombrePersonaje
+	 * return String dato
+	 */
 	
 	public String obtenerSkinsPersonaje(String nombreCuenta,String nombrePersonaje) {
 		String dato = "";
@@ -476,6 +660,13 @@ public class SystemImpl implements SystemI{
 		return dato;
 	}
 	
+	/**
+	 * this function checks if the character exists
+	 * @param nombrePersonaje
+	 * return true if personaje does not exist
+	 * else return false
+	 */
+	
 	public boolean existePersonaje(String nombrePersonaje) {
 		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
 		if(personaje != null) {
@@ -484,6 +675,13 @@ public class SystemImpl implements SystemI{
 			return false;
 		}
 	}
+	
+	/**
+	 * this function checks if the skin exists
+	 * @param nombrePersonaje
+	 * return true if skin does not exist
+	 * else return false
+	 */
 	
 	public boolean existeSkin(String nombreSkin) {
 		Skin skin = lSkins.buscar(nombreSkin);

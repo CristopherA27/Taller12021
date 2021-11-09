@@ -7,6 +7,12 @@ import java.util.Scanner;
 
 public class App {
 	
+	/**
+	 * procedure that reads the Accounts text file
+	 * @param system
+	 * @throws IOException
+	 */
+	
 	public static void leerCuentas(SystemI system) throws FileNotFoundException{
 		System.out.println("Leyendo Cuentas");
 		Scanner s = new Scanner(new File("Cuentas.txt"));
@@ -52,6 +58,12 @@ public class App {
 		}
 	}
 	
+	/**
+	 * procedure that reads the Characters text file
+	 * @param system
+	 * @throws IOException
+	 */
+	
 	public static void leerPersonajes(SystemI system)throws FileNotFoundException{
 		System.out.println("Leyendo Personajes");
 		Scanner s = new Scanner(new File("Personajes.txt"));
@@ -86,6 +98,12 @@ public class App {
 		}
 	}
 	
+	/**
+	 * procedure that reads the Statistics text file
+	 * @param system
+	 * @throws IOException
+	 */
+	
 	public static void leerEstadisticas(SystemI system) throws FileNotFoundException{
 		System.out.println("Leyendo Estadisticas");
 		Scanner s = new Scanner(new File("Estadisticas.txt"));
@@ -104,6 +122,13 @@ public class App {
 			}
 		}
 	}
+	
+	/**
+	 * procedure used to login
+	 * @param system
+	 * return true if the password is "ADMIN" or if the password belongs to an account
+	 * else return false
+	 */
 	
 	public static boolean inicioSesion(SystemI system) {
 		System.out.print("Ingrese el NombreCuenta: ");
@@ -168,6 +193,12 @@ public class App {
 		}
 
 	}
+	
+	/**
+	 * This procedure shows all the options available when you log in.
+	 * @param system
+	 * @param nombreCuenta
+	 */
 	
 	public static void menuUsuario(SystemI system,String nombreCuenta) {
 		boolean cierre = true;
@@ -294,6 +325,11 @@ public class App {
 		System.out.println("\tSALIENDO DEL MENU USUARIO");
 	}
 	
+	/**
+	 * this procedure shows all the options available when logging in as admin
+	 * @param system
+	 */
+	
 	public static void menuAdmin(SystemI system) {
 		boolean cierre = true;
 		System.out.println("Bienvenido al Menu ADMIN");
@@ -381,6 +417,11 @@ public class App {
 		System.out.println("\tSALIENDO DEL MENU CLIENTE");
 	}
 	
+	/**
+	 * allows you to add a champion along with their skins to an account
+	 * @param system
+	 */
+	
 	public static void agregarPersonajeSkin(SystemI system) {
 		System.out.print("Ingrese el nombre del personaje que desea agregar: ");
 		String nombrePersonaje = leer.nextLine();
@@ -429,6 +470,12 @@ public class App {
 			
 	}
 	
+	/**
+	 * main function
+	 * @param args
+	 * @throws IOException
+	 */
+	
 	public static void main(String [] args) throws IOException {
 		SystemI system = new SystemImpl();
 		leerPersonajes(system);
@@ -452,6 +499,11 @@ public class App {
 		sobreescribir(system);
 		leer.close();
 	}
+	
+	/**
+	 * this this function overwrites the changed data
+	 * @param system
+	 */
 	
 	public static void sobreescribir(SystemI system) {
 		
