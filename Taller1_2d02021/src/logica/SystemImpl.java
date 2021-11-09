@@ -144,7 +144,7 @@ public class SystemImpl implements SystemI{
 	public boolean ingresarEstadistica(String nombrePersonaje,double recaudacion) {
 		Personaje personaje = lPersonajes.buscar(nombrePersonaje);
 		if(personaje!=null) {
-			personaje.setRecaudacion(recaudacion);
+			personaje.setRecaudacion(personaje.getRecaudacion()+recaudacion);
 			return true;
 		}
 		return false;

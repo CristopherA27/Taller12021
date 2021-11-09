@@ -471,6 +471,38 @@ public class App {
 	}
 	
 	/**
+	 * It will overwrite the new data in the corresponding txt
+	 * @param system
+	 * @throws IOException
+	 */
+	
+	public static void sobreescribir(SystemI system) throws IOException {
+		ArchivoSalida arch = new ArchivoSalida("Cuentas.txt");
+		Registro registroSalida = new Registro(1);
+		registroSalida.agregarCampo(system.obtenerCuentas());
+		arch.writeRegistro(registroSalida);
+		arch.close();
+		
+		ArchivoSalida arch1 = new ArchivoSalida("Personajes.txt");
+		Registro registroSalida1 = new Registro(2);
+		registroSalida1.agregarCampo(system.obtenerPersonajes());
+		arch1.writeRegistro(registroSalida1);
+		arch1.close();
+		
+		ArchivoSalida arch2 = new ArchivoSalida("Estadisticas.txt");
+		Registro registroSalida2 = new Registro(3);
+		registroSalida2.agregarCampo(system.obtenerEstadisticas());
+		arch2.writeRegistro(registroSalida2);
+		arch2.close();
+		
+	}
+	
+	
+	
+	
+	
+	
+	/**
 	 * main function
 	 * @param args
 	 * @throws IOException
@@ -506,11 +538,6 @@ public class App {
 	 * @throws IOException 
 	 */
 	
-	public static void sobreescribir(SystemI system) throws IOException {
-		ArchivoSalida arch = new ArchivoSalida("Cuentas.txt");
-		Registro registroSalida = new Registro(1);
-		
-	}
 
 	public static Scanner leer = new Scanner(System.in);
 	
